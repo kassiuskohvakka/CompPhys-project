@@ -142,6 +142,22 @@ which is a generalized eigenvalue problem involving our known matrices. Solving 
 \label{fig: triangles}
 \end{figure}
 
+The triangulation of the domain $\Omega = [0,1]\times[0,1]$ was done by using \texttt{pygmsh}, a python wrapper for the mesh generator tool Gmsh. Having constructed the triangular subdomains $\lbrace \Omega_k \rbrace_k$, construction of the required matrices can be achieved by integrating suitable functions over the subdomains. Integration over an arbitrary triangle can be done by a number of quadratures and was done in practice by utilizing \texttt{quadpy}, a python library for numerical integration.
+
+The explicit formulas for the piecewise affine hat basis functions for each of the subdomains must be constructed to compute $T$, $V$ and $S$. Over the arbitrary subdomain $\Omega_k$ the relevant basis functions located at the vertices are given by
+
+\begin{eqnarray}
+\phi_1^k(x,y) &= \frac{1}{2A_k} \left[ (x_2y_3 - x_3y_2) + (y_2 - y_3)x + (x_3-x_2)y \right] \\
+\phi_2^k(x,y) &= \frac{1}{2A_k} \left[ (x_3y_1 - x_1y_3) + (y_3 - y_1)x + (x_1-x_3)y  \right] \\
+\phi_3^k(x,y) &= \frac{1}{2A_k} \left[ (x_1y_2 - x_2y_1) + (y_1 - y_2)x + (x_2-x_1)y \right]
+\end{eqnarray}
+
+where $A_k$ is the area of the triangle $\Omega_k$ and the labelling of the nodes and basis functions is as in Fig.~\ref{fig: triangles} a). These functions and their simple gradients are easily implemented by some modular arithmetic magic.
+
+After defining a suitable potential function $V(x,y)$, we are ready to start constructing the matrices. Each of the matrices is of size $N \times N$, with row $i$ containing nonzero elements on all columns $j$ if there exists an edge connecting nodes $i$ and $j$, i.e. if the basis functions $\phi_i$ and $\phi_j$ overlap. The value of each of the nonzero elements is the sum of the integral of the relevant functions over the two (or, on the boundary, just one) common triangular subdomains. See Fig.~\ref{fig: triangles} b) and the colored relevant subdomains. Computing the integrals in Eq.~(\ref{eq: readyFEMeq}) and carefully inserting them into the matrices, we are left with all the pieces needed to solve the generalized eigenvalue problem in Eq.~(\ref{eq: matrixFormFEMeq}).
+
+
+
 %\begin{figure}[h]
 %\centering
 %\begin{subfigure}[b]{.5\textwidth}
