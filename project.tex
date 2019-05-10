@@ -1,0 +1,113 @@
+\documentclass[a4paper,12pt]{article}
+\frenchspacing
+\usepackage[utf8]{inputenc}
+\usepackage{a4wide}
+%\usepackage[finnish]{babel}
+\usepackage[english]{babel}
+\usepackage{mathtools}
+\usepackage{siunitx}
+%\usepackage[utf8]{inputenc}
+\usepackage[pdftex]{graphicx}
+\usepackage{icomma}
+\usepackage{hyperref}
+\usepackage{amssymb}
+\usepackage{float}
+%\usepackage{mhchem}
+\usepackage{parskip}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{fancyhdr}
+\usepackage{eurosym}
+\usepackage{enumerate}
+%\usepackage{subfig}
+%\usepackage{floatrow}
+%\floatsetup[figure]{style=plain,subcapbesideposition=top}
+
+
+
+%%% NEW COMMANDS
+
+\newcommand{\dd}{\,\mathrm{d}}
+\newcommand{\exerline}{
+\vspace*{.1cm}
+\noindent \rule{\textwidth}{1pt}
+\vspace*{.1cm}
+}
+
+%\usepackage{lastpage}
+
+\pagestyle{fancy}
+\fancyhead{}
+\fancyhead[LO,RE]{Comp. Phys. -- Project}
+%\fancyhead[RO,LE]{Harjoitus 1, 14.9.2012}
+\fancyhead[RO,LE]{Kohvakka, 2019}
+%\fancyfoot{}
+%\fancyfoot[LO,RE]{Kangaslampi / Laaksonen}
+%\fancyfoot[RO,LE]{\thepage/\pageref{LastPage}}
+
+
+\hyphenation{every-where}
+\renewcommand{\baselinestretch}{1}
+
+\begin{document}
+
+
+%\begin{minipage}[t][1.5cm][b]{.2\textwidth}
+%\AaltoLogoRandomLarge{0.7}
+%\end{minipage}
+\begin{minipage}[t][1.5cm][b]{\textwidth}
+\begin{center}
+\Large{\textbf{Computational Physics}} \\
+\vspace*{.1cm}
+\Large{\textbf{Ex. 12 -- DFT solver}}\\
+\vspace*{.1cm}
+\large{Kassius Kohvakka, 586977}
+\end{center}
+\end{minipage} 
+\vspace{-0.4cm}
+
+\exerline
+
+The exercise was done by modifying the provided Matlab code. The solver is implemented in \texttt{DFT\_solver.m}. The script \texttt{run\_DFT\_solver.m} was used to run the solver and plot the results.
+
+\textbf{(a)} The resulting electron density for $M=1$ nucleus and $N=3$ electrons is shown in Fig.~\ref{fig: density}. The normalization of the solver seems to be correct as $\int \rho (x) \dd x = 3$, as it should be since the normalized basis functions $\phi_i$ should satisfy
+
+\begin{equation}
+\int_\infty^\infty \rho (x) \dd x = \int_\infty^\infty \sum_{i=1}^{3} |\phi_i(x)|^2 \dd x = \sum_{i=1}^{3} \int_\infty^\infty |\phi_i(x)|^2 \dd x = \sum_{i=1}^{3} 1 = 3.
+\end{equation}
+
+The resulting electron density seems to be well contained within the potential well of the nucleus, which seems plausible.
+
+\textbf{(b)} The system with two nuclei ($M=2$) and six electrons ($N=6$) was set up and the DFT solver was run at varying inter-nucleus separations $\Delta x$. The total energy of the system as a  function of the separation is shown in Fig.~\ref{fig: energy}. From the plot, we can clearly see that the total energy is minimized by $\Delta x \approx 0.5$, indicating the presence of simple chemical bonding in our DFT system. The electron density for the energy-minimizing separation is plotted in Fig.~\ref{fig: min_energy}, along with the locations of, and the external potential caused by the two nuclei.
+
+\textbf{(c)} About 8 hours in all.
+
+%\begin{figure}[h]
+%\centering
+%\includegraphics[width=0.7\textwidth]{figs/minimum_energy.pdf}
+%\caption{The electron density at the separation $\Delta x$ minimizing the total energy of the system with $M=2$, $N=6$. The vertical lines indicate the locations of the two nuclei. The external potential due to the nuclei is shown in arbitrary units with the dashed line.}
+%\label{fig: min_energy}
+%\end{figure}
+
+%\begin{figure}[h]
+%\centering
+%\begin{subfigure}[b]{.5\textwidth}
+%  \centering
+%  \includegraphics[width=\textwidth]{figs/wave_euler_forward.pdf}
+%  \caption{Implicit Euler}
+%  \label{fig:sub1}
+%\end{subfigure}%
+%\begin{subfigure}[b]{.5\textwidth}
+%  \centering  
+%  \includegraphics[width=\textwidth]{figs/wave_cn_forward.pdf}
+%  \caption{Crank-Nicolson}
+%  \label{fig:sub2}
+%\end{subfigure}
+%\caption{The results for the two integration schemes for forward time integration of the wave equation from $t_0=0$ to $t_{f}$ = 0.2}
+%\label{fig:waveForward}
+%\end{figure}
+
+
+
+\end{document}
