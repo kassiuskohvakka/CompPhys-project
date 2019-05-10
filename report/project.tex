@@ -11,6 +11,7 @@
 \usepackage{icomma}
 \usepackage{hyperref}
 \usepackage{amssymb}
+\usepackage{amsmath}
 \usepackage{float}
 %\usepackage{mhchem}
 \usepackage{parskip}
@@ -60,7 +61,7 @@
 \begin{center}
 \Large{\textbf{Computational Physics}} \\
 \vspace*{.1cm}
-\Large{\textbf{Ex. 12 -- DFT solver}}\\
+\Large{\textbf{Project -- 2D FEM Schrödinger solver}}\\
 \vspace*{.1cm}
 \large{Kassius Kohvakka, 586977}
 \end{center}
@@ -69,19 +70,68 @@
 
 \exerline
 
-The exercise was done by modifying the provided Matlab code. The solver is implemented in \texttt{DFT\_solver.m}. The script \texttt{run\_DFT\_solver.m} was used to run the solver and plot the results.
+\section{Background}
 
-\textbf{(a)} The resulting electron density for $M=1$ nucleus and $N=3$ electrons is shown in Fig.~\ref{fig: density}. The normalization of the solver seems to be correct as $\int \rho (x) \dd x = 3$, as it should be since the normalized basis functions $\phi_i$ should satisfy
+\section{Theory and methods}
+
+The two-dimensional time-independent Schrödinger equation is given by
 
 \begin{equation}
-\int_\infty^\infty \rho (x) \dd x = \int_\infty^\infty \sum_{i=1}^{3} |\phi_i(x)|^2 \dd x = \sum_{i=1}^{3} \int_\infty^\infty |\phi_i(x)|^2 \dd x = \sum_{i=1}^{3} 1 = 3.
+\label{eq: 2DSchrodinger}
+-\frac{\hbar}{2m} \left( \frac{\partial^2 \psi (x,y)}{\partial x^2} + \frac{\partial^2 \psi (x,y)}{\partial y^2} \right) + V(x,y)\psi (x,y) = E \psi (x,y) .
 \end{equation}
 
-The resulting electron density seems to be well contained within the potential well of the nucleus, which seems plausible.
+In order to use FEM to numerically solve Eq. (\ref{eq: 2DSchrodinger}), we expand the wave function $\psi (x,y)$ in a basis of tetrahedral hat functions $\lbrace \phi_i \rbrace_{i=1..N}$ as
 
-\textbf{(b)} The system with two nuclei ($M=2$) and six electrons ($N=6$) was set up and the DFT solver was run at varying inter-nucleus separations $\Delta x$. The total energy of the system as a  function of the separation is shown in Fig.~\ref{fig: energy}. From the plot, we can clearly see that the total energy is minimized by $\Delta x \approx 0.5$, indicating the presence of simple chemical bonding in our DFT system. The electron density for the energy-minimizing separation is plotted in Fig.~\ref{fig: min_energy}, along with the locations of, and the external potential caused by the two nuclei.
+\begin{equation}
+\label{eq: basisExpansion}
+\psi (x,y) \approx \sum_{i=1}^{N} \alpha_i \phi_i(x,y),
+\end{equation}
 
-\textbf{(c)} About 8 hours in all.
+where $N$ is the number of finite elements used in our computation and $\alpha_i$, the coefficients in the linear combination are to be solved for. The linear combination then allows us to construct an approximate solution to the original problem. Setting, for simplicity, $\frac{\hbar}{m} = 1$, writing the partial derivatives more concisely as $\nabla^2 \psi(x,y)$, and substituting our basis expansion in Eq. (\ref{eq: 2DSchrodinger}), we get 
+
+
+\begin{equation}
+\label{eq: schrodingerInFEMBasis}
+\left( -\frac{1}{2} \nabla^2 + V(x,y) \right) \sum_{i=1}^{N} \alpha_i \phi_i(x,y)  = E \sum_{i=1}^{N} \alpha_i \phi_i(x,y).
+\end{equation}
+
+Rearranging and multiplying both sides by the basis function $\phi_j$, we acquire
+
+\begin{equation}
+\sum_{i=1}^{N} \left[ -\frac{1}{2} \phi_j(x,y) \nabla^2 \phi_i(x,y) + \phi_j(x,y) V(x,y) \phi_i(x,y) \right]  \alpha_i   = E \sum_{i=1}^{N} \alpha_i \phi_j(x,y) \phi_i(x,y).
+\end{equation}
+
+We can now integrate both sides over the domain $\Omega$ of our problem (and lighten the notation by getting rid of the cluttering $(x, y)$-silliness) to get
+
+\begin{equation}
+\label{eq: almostReadyFEMeq}
+\sum_{i=1}^{N} \left[ -\frac{1}{2} \left( \int_{\Omega} \phi_j \nabla^2 \phi_i \dd A \right) + \left( \int_{\Omega} \phi_j V \phi_i \dd A \right) \right]  \alpha_i   = \sum_{i=1}^{N} E \left( \int_{\Omega} \phi_j \phi_i \dd A \right) \alpha_i .
+\end{equation}
+
+The integrals inside the ordinary parentheses are now matrices. The first of the three still needs to be rewritten by Green's first identity:
+
+\begin{equation}
+\int_{\Omega} \phi_j \nabla^2 \phi_i \dd A = \underbrace{\oint_{\partial\Omega} \phi_j (\nabla \phi_i \cdot \hat{n} )\dd l}_{=0} - \int_{\Omega} \nabla \phi_j \cdot \nabla \phi_i \dd A,
+\end{equation}
+
+where the vanishing of the indicated term can be achieved in practice by setting either the basis functions $\lbrace\phi_i\rbrace_i$ or the normal-directional derivatives $\lbrace \nabla \phi_i \cdot \hat{n}\rbrace_i$ at the boundary $\partial \Omega$ to 0 by use of Dirichlet or Neumann boundary conditions, respectively. We can then finally identify the matrices in Eq. (\ref{eq: almostReadyFEMeq}) as the kinetic matrix $T_{ji}$, the potential matrix $V_{ji}$ and the overlap matrix $S_{ji}$:
+
+\begin{equation}
+\label{eq: readyFEMeq}
+\sum_{i=1}^{N} \left[ \underbrace{\frac{1}{2} \left( \int_{\Omega} \nabla \phi_j \cdot \nabla \phi_i \dd A \right)}_{T_{ji}} + \underbrace{\left( \int_{\Omega} \phi_j V \phi_i \dd A \right)}_{V_{ji}} \right]  \alpha_i   = \sum_{i=1}^{N} E \underbrace{\left( \int_{\Omega} \phi_j \phi_i \dd A \right)}_{S_{ji}} \alpha_i .
+\end{equation}
+
+Since the summations on both sides of the equation are just the $j^{\text{th}}$ elements of a matrix-vector product, the elementwise equality implies equality of the resultant vectors and we get
+
+\begin{equation}
+\label{eq: matrixFormFEMeq}
+(T + V)\alpha = ES\alpha,
+\end{equation}
+
+which is a generalized eigenvalue problem involving our known matrices. Solving this, we acquire as eigenvectors the coefficient vectors $\alpha$ approximating the true eigenstates as per the linear combination (\ref{eq: basisExpansion}) and the corresponding approximate energies $E$ of the eigenstates as eigenvalues.
+
+
 
 %\begin{figure}[h]
 %\centering
