@@ -27,6 +27,7 @@ parser.add_argument('-m', type=float, default=0.1, help='The mesh parameter. Def
 args = parser.parse_args()
 
 SAVE_TO_FILE = args.s
+mesh_parameter = args.m
 
 ##################################
 
@@ -88,9 +89,12 @@ def FEM_hat_grad(triangle, corner, corner2, x):
 ### TRIANGULATE
 ###########################################################
 
-# 0.02 is doable
-mesh_parameter = args.m
+print(f'Save results : {SAVE_TO_FILE}')
+print(f'Mesh parameter : {mesh_parameter}')
 
+tic = time.time()
+
+print(f'Starting triangulation...', end="", flush=True)
 
 geom = pg.built_in.Geometry()
 
@@ -148,6 +152,12 @@ triangle_coords = np.array(triangle_coords)
 # print(quadpy.triangle.integrate(f, triangle, quadpy.triangle.Strang(9)))
 
 
+
+print(f'DONE!')
+
+print(f'***\nConstructing matrices:')
+
+
 # Number of points
 N = len(mesh.points)
 
@@ -162,6 +172,7 @@ S = np.zeros((N,N))
 
 
 # Start constructing the overlap matrix
+print(f'\tOverlap...', end="", flush=True)
 
 for i, tr in enumerate(mesh.cells['triangle']):
 
@@ -194,8 +205,10 @@ for i, tr in enumerate(mesh.cells['triangle']):
     S[tr[2], tr[2]] += overlap22
 
 # print(S)
+print(f'DONE!')
 
 # Start constructing the potential matrix
+print(f'\tPotential matrix...', end="", flush=True)
 
 for i, tr in enumerate(mesh.cells['triangle']):
 
@@ -227,8 +240,10 @@ for i, tr in enumerate(mesh.cells['triangle']):
     V[tr[1], tr[1]] += pot11
     V[tr[2], tr[2]] += pot22
 
+print(f'DONE!')
 
 # Start constructing the potential matrix
+print(f'\tKinetic matrix...', end="", flush=True)
 
 for i, tr in enumerate(mesh.cells['triangle']):
 
@@ -261,59 +276,49 @@ for i, tr in enumerate(mesh.cells['triangle']):
     T[tr[2], tr[2]] += kin22
 
 # print(V)
+print(f'DONE!')
 
 # Construct the Hamiltonian
+print(f'Solving the generalized eigenvalue problem...', end="", flush=True)
 
 H = 0.5*T + V
 
 E, psi = la.eigh(H[1:-1, 1:-1], b=S[1:-1, 1:-1])
 
-
 psi = np.vstack((np.zeros((1, N-2)), psi, np.zeros((1, N-2))))
 
-ts = time.time()
-readts = datetime.datetime.fromtimestamp(round(ts)).isoformat()
+print(f'DONE!')
 
-filename = "data/results_m{}_{}".format(mesh_parameter, readts)
+#################################
+### SAVING THE DATA
+#################################
 
-data = np.array([E, psi])
+if (SAVE_TO_FILE):
+    print(f'Saving data...', end="", flush=True)
 
-np.save(filename, data)
-
-
-
-
-### Plotting
-# fig = plt.figure()
-# ax = fig.add_subplot(111, projection='3d')
-# # plt.plot(psi[:,0]
-# ax.plot_trisurf(mesh.points[:,0], mesh.points[:,1], psi[:,1])
-# plt.show()
+    # Save the potential landscape
+    X, Y = np.meshgrid(np.linspace(0,1,100), np.linspace(0,1,100))
+    # print(X.shape)
+    Z = pot(np.array([X,Y]))
 
 
+    ts = time.time()
+    readts = datetime.datetime.fromtimestamp(round(ts)).isoformat()
+
+    # filename = "data/results_m{}_{}".format(mesh_parameter, readts)
+
+    filename = "data/test"
+
+    data = np.array([E, psi, mesh.points, Z])
+
+    np.save(filename, data, allow_pickle=True)
 
 
+    print(f'DONE!\n***\nData saved successfully in {filename}.npy\n')
 
 
+toc = time.time()
 
-
-
-
-### Visually check that triangulation was successful
-# plt.figure()
-# plt.scatter(mesh.points[:,0], mesh.points[:,1])
-# # for tr in mesh.cells['triangle']:
-# #   plt.plot([mesh.points[tr[0]][0] , mesh.points[tr[1]][0]], [mesh.points[tr[0]][1], mesh.points[tr[1]][1]])
-# #   plt.plot([mesh.points[tr[1]][0] , mesh.points[tr[2]][0]], [mesh.points[tr[1]][1], mesh.points[tr[2]][1]])
-# #   plt.plot([mesh.points[tr[2]][0] , mesh.points[tr[0]][0]], [mesh.points[tr[2]][1], mesh.points[tr[0]][1]])
-
-# X, Y = np.meshgrid(np.linspace(0,1,100), np.linspace(0,1,100))
-# # print(X.shape)
-# Z = pot(np.array([X,Y]))
-# plt.contourf(X,Y, np.reshape(Z, X.shape))
-# plt.show()
-
-
-
+print(f'Time taken : {round(toc - tic, 2)} s')
 
 
