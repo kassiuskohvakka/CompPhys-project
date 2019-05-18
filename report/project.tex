@@ -24,6 +24,7 @@
 %\usepackage{subfig}
 %\usepackage{floatrow}
 %\floatsetup[figure]{style=plain,subcapbesideposition=top}
+\usepackage{wrapfig, blindtext}
 
 
 
@@ -142,7 +143,7 @@ which is a generalized eigenvalue problem involving our known matrices. Solving 
 \label{fig: triangles}
 \end{figure}
 
-The triangulation of the domain $\Omega = [0,1]\times[0,1]$ was done by using \texttt{pygmsh}, a python wrapper for the mesh generator tool Gmsh. Having constructed the triangular subdomains $\lbrace \Omega_k \rbrace_k$, construction of the required matrices can be achieved by integrating suitable functions over the subdomains. Integration over an arbitrary triangle can be done by a number of quadratures and was done in practice by utilizing \texttt{quadpy}, a python library for numerical integration.
+The triangulation of the domain $\Omega = [0,1]\times[0,1]$ was done by using \texttt{pygmsh}, a python wrapper for the mesh generator tool Gmsh. Having constructed the triangular subdomains $\lbrace \Omega_k \rbrace_k$, construction of the required matrices can be achieved by integrating suitable functions over the subdomains. Integration over an arbitrary triangle can be done by a number of quadratures and was done in practice by utilizing \texttt{quadpy}, a python library for numerical integration. The generalized eigenvalue problem was solved using \texttt{scipy.linalg.eigh}, a library solver for eigenvalue problems involving Hermitian matrices.
 
 The explicit formulas for the piecewise affine hat basis functions for each of the subdomains must be constructed to compute $T$, $V$ and $S$. Over the arbitrary subdomain $\Omega_k$ the relevant basis functions located at the vertices are given by
 
@@ -156,12 +157,22 @@ where $A_k$ is the area of the triangle $\Omega_k$ and the labelling of the node
 
 After defining a suitable potential function $V(x,y)$, we are ready to start constructing the matrices. Each of the matrices is of size $N \times N$, with row $i$ containing nonzero elements on all columns $j$ if there exists an edge connecting nodes $i$ and $j$, i.e. if the basis functions $\phi_i$ and $\phi_j$ overlap. The value of each of the nonzero elements is the sum of the integral of the relevant functions over the two (or, on the boundary, just one) common triangular subdomains. See Fig.~\ref{fig: triangles} b) and the colored relevant subdomains. Computing the integrals in Eq.~(\ref{eq: readyFEMeq}) and carefully inserting them into the matrices, we are left with all the pieces needed to solve the generalized eigenvalue problem in Eq.~(\ref{eq: matrixFormFEMeq}).
 
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.5\textwidth]{../figs/pot.pdf}
+\section{Results}
+
+\subsection{Testing solver and convergence}
+
+\begin{wrapfigure}{r}{0.5\textwidth}
+\vspace{-20pt}
+\hspace{10pt}
+\begin{center}
+\includegraphics[width=0.45\textwidth]{../figs/gauss_pot.pdf}
 \caption{The potential landscape used in initial tests of the FEM solver. The blue region in the middle is the Gaussian potential minimum and the red region is a high potential barrier approximating an infinite potential well. The blue dots are the triangulation nodes for $N=3436$. }
 \label{fig: gaussPot}
-\end{figure}
+\end{center}
+\end{wrapfigure}
+The initial tests were carried out with simple Gaussian potential minimum in a $[0,1]\times[0,1]$ unit square. The potential landscape is shown in Fig.~\ref{fig: gaussPot} along with the mesh points created by the \texttt{pygmsh} triangulation. The solver was run for this potential and triangulation and the resulting eigenstates and -energies are shown in Fig.~\ref{fig: gaussEigFuncs}. Visual inspection reveals at least that there are no catastrophic errors in the matrices or the solver.
+
+In addition to simple visual inspection, we can also, for instance, check whether the energy eigenvalues got from the solver seem to be converging to a given value as the dimension $N$ of the FEM basis is increased. The apparent convergence of the five lowest energy eigenvalues is shown in Fig.~\ref{fig: gaussEigVals}. At around $N=3500$, the eigenvalues seem to no longer be changing sporadically, implying that our FEM approximation may be getting quite close to the true solution. Given large enough basis dimension, our solver therefore seems to be solving the problem correctly.
 
 
 \begin{figure}[H]
@@ -173,6 +184,7 @@ After defining a suitable potential function $V(x,y)$, we are ready to start con
 \end{figure}
 
 
+
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.7\textwidth]{../figs/energy_convergence.pdf}
@@ -180,25 +192,34 @@ After defining a suitable potential function $V(x,y)$, we are ready to start con
 \label{fig: gaussEigVals}
 \end{figure}
 
+\subsection{More interesting potential -- less uniform mesh}
+
+To inspect the behaviour of the solver in a different potential landscape, we define a 2D ring-shaped potential well, surrounded on the inside and outside by a high potential. Next, we would like to achieve something like an adaptive meshing scheme to try out our solver with a noticably non-uniform mesh and to keep our FEM basis dimension manageably low while spending our mesh points where it matters, around areas of interesting eigenstate behaviour.
+
+I quickly realized that as it stands, the \texttt{pygmsh} tool kit used in the triangulation lends itself quite poorly to adaptive meshing, so the next best thing was done. The trianglulation software was more manually instructed to create smaller finite elements around the ring-shaped potential well, while creating larger triangles both outside and inside the ring. Both the potential landscape and the non-uniformly distributed mesh points created by the modified triangulation algorithm are shown in Fig.~\ref{fig: circlePot}.
+
+\begin{wrapfigure}{l}{0.5\textwidth}
+\vspace{-20pt}
+\hspace{-30pt}
+\begin{center}
+\includegraphics[width=0.45\textwidth]{../figs/circle_pot.pdf}
+\caption{The ring-shaped potential landscape. The blue (red) color denotes low (high) potential. The blue dots are the triangulation nodes for $N=4763$. Note that the distrubution of the nodes is highly non-uniform. }
+\label{fig: circlePot}
+\end{center}
+\end{wrapfigure}
+
+The modified mesh does little to make solving the generalized eigenproblem any harder. Fig.~\ref{fig: circleEigFuncs} shows the six lowest-energy eigenstates inside the ring-shaped potential well. The eigenstates seem to obey intuition as increase in energy generally translates directly in an addition of a symmetrically-distributed antinode. Interestingly, the more accurate mesh seems to be able to differentiate between the two near-degenerate states $\psi_1$ and $\psi_2$, whose only difference is the direction of the line connecting the antinodal points. Possibly due to the boundary being so close by and rectangular, the diagonally-oriented antinodes of $\psi_1$ lead to an ever so slightly lower energy in comparison to $\psi_2$ oriented along the $x$-axis.
 
 
-%\begin{figure}[h]
-%\centering
-%\begin{subfigure}[b]{.5\textwidth}
-%  \centering
-%  \includegraphics[width=\textwidth]{figs/wave_euler_forward.pdf}
-%  \caption{Implicit Euler}
-%  \label{fig:sub1}
-%\end{subfigure}%
-%\begin{subfigure}[b]{.5\textwidth}
-%  \centering  
-%  \includegraphics[width=\textwidth]{figs/wave_cn_forward.pdf}
-%  \caption{Crank-Nicolson}
-%  \label{fig:sub2}
-%\end{subfigure}
-%\caption{The results for the two integration schemes for forward time integration of the wave equation from $t_0=0$ to $t_{f}$ = 0.2}
-%\label{fig:waveForward}
-%\end{figure}
+\begin{figure}[H]
+\centering
+\vspace{-5cm}
+\includegraphics[width=\textwidth]{../figs/eigenfuncs_circle.pdf}
+\caption{The six lowest-energy eigenstates in the ring-shaped potential well with $N=4763$.}
+\label{fig: circleEigFuncs}
+\end{figure}
+
+
 
 
 
