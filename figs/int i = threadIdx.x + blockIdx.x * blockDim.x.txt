@@ -1,0 +1,1 @@
+int i = threadIdx.x + blockIdx.x * blockDim.x;

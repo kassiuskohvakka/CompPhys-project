@@ -8,6 +8,9 @@ from mpl_toolkits.mplot3d import Axes3D
 import datetime
 import time
 
+#import threading
+import multiprocessing
+
 from scipy import linalg as la
 
 import argparse
@@ -174,6 +177,8 @@ S = np.zeros((N,N))
 # Start constructing the overlap matrix
 print(f'\tOverlap...', end="", flush=True)
 
+# def construct_overlap(S, pos, output):
+
 for i, tr in enumerate(mesh.cells['triangle']):
 
     overlap00 = quadpy.triangle.integrate( lambda x: FEM_hat(triangle_coords[i], 0, x)*FEM_hat(triangle_coords[i], 0, x),
@@ -203,6 +208,10 @@ for i, tr in enumerate(mesh.cells['triangle']):
     S[tr[0], tr[0]] += overlap00
     S[tr[1], tr[1]] += overlap11
     S[tr[2], tr[2]] += overlap22
+    # output.put((pos, S))
+
+
+# construct_overlap()
 
 # print(S)
 print(f'DONE!')
@@ -210,6 +219,7 @@ print(f'DONE!')
 # Start constructing the potential matrix
 print(f'\tPotential matrix...', end="", flush=True)
 
+# def construct_potential(V, pos, output):
 for i, tr in enumerate(mesh.cells['triangle']):
 
     pot00 = quadpy.triangle.integrate( lambda x: pot(x)*FEM_hat(triangle_coords[i], 0, x)*FEM_hat(triangle_coords[i], 0, x),
@@ -239,12 +249,16 @@ for i, tr in enumerate(mesh.cells['triangle']):
     V[tr[0], tr[0]] += pot00
     V[tr[1], tr[1]] += pot11
     V[tr[2], tr[2]] += pot22
+    # output.put((pos, V))
+
+# construct_potential()
 
 print(f'DONE!')
 
 # Start constructing the potential matrix
 print(f'\tKinetic matrix...', end="", flush=True)
 
+# def construct_kinetic(T, pos, output):
 for i, tr in enumerate(mesh.cells['triangle']):
 
     kin00 = quadpy.triangle.integrate( lambda x: FEM_hat_grad(triangle_coords[i], 0, 0, x),
@@ -274,9 +288,49 @@ for i, tr in enumerate(mesh.cells['triangle']):
     T[tr[0], tr[0]] += kin00
     T[tr[1], tr[1]] += kin11
     T[tr[2], tr[2]] += kin22
+    # output.put((pos, T))
 
-# print(V)
+# construct_kinetic()
+
+output = multiprocessing.Queue()
+
+
+#def run_threads():
+# t1 = multiprocessing.Process(target=construct_overlap, args=(S, 1, output))
+# t2 = multiprocessing.Process(target=construct_potential, args=(V, 2, output))
+# t3 = multiprocessing.Process(target=construct_kinetic, args=(T, 3, output))
+
+# t1.start()
+# t2.start()
+# t3.start()
+
+# t1.join()
+# t2.join()
+# t3.join()
+
+# results = [output.get() for i in range(3)]
+
+# results.sort()
+
+# results = [r[1] for r in results]
+
+# S = results[0]
+# V = results[1]
+# T = results[2]
+
+
+#d1 = threading.Thread(target=run_threads)
+
+#d1.start()
+#d1.join()
+
 print(f'DONE!')
+
+
+# print(S)
+
+
+
 
 # Construct the Hamiltonian
 print(f'Solving the generalized eigenvalue problem...', end="", flush=True)
@@ -301,15 +355,18 @@ if (SAVE_TO_FILE):
     # print(X.shape)
     Z = pot(np.array([X,Y]))
 
+    # Save the dimension of the basis
+    N = len(mesh.points)
+
 
     ts = time.time()
     readts = datetime.datetime.fromtimestamp(round(ts)).isoformat()
 
     # filename = "data/results_m{}_{}".format(mesh_parameter, readts)
 
-    filename = "data/test"
+    filename = f"data/energy_convergence_m_{str(mesh_parameter).replace('.', 'p')}"
 
-    data = np.array([E, psi, mesh.points, Z])
+    data = np.array([E, psi, mesh.points, Z, N])
 
     np.save(filename, data, allow_pickle=True)
 

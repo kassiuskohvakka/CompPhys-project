@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6700) (preloaded format=pdflatex 2018.5.27)  10 MAY 2019 17:10
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6700) (preloaded format=pdflatex 2018.5.27)  18 MAY 2019 13:26
 entering extended mode
 **./project.tex
 (project.tex
@@ -895,7 +895,16 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [3 <../figs/triangle.pdf>]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 181.
+<../figs/pot.pdf, id=55, 361.35pt x 361.35pt>
+File: ../figs/pot.pdf Graphic file (type pdf)
+<use ../figs/pot.pdf>
+Package pdftex.def Info: ../figs/pot.pdf  used on input line 161.
+(pdftex.def)             Requested size: 230.36061pt x 230.35895pt.
+<../figs/eigenfuncs_gauss.pdf, id=56, 578.16pt x 867.24pt>
+File: ../figs/eigenfuncs_gauss.pdf Graphic file (type pdf)
+<use ../figs/eigenfuncs_gauss.pdf>
+Package pdftex.def Info: ../figs/eigenfuncs_gauss.pdf  used on input line 170.
+(pdftex.def)             Requested size: 460.72124pt x 691.0802pt.
 
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -903,20 +912,43 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[4]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 181.
+[4 <../figs/pot.pdf>]
+<../figs/energy_convergence.pdf, id=75, 433.62pt x 433.62pt>
+File: ../figs/energy_convergence.pdf Graphic file (type pdf)
+<use ../figs/energy_convergence.pdf>
+Package pdftex.def Info: ../figs/energy_convergence.pdf  used on input line 178
+.
+(pdftex.def)             Requested size: 322.50345pt x 322.52129pt.
+
+
+Package Fancyhdr Warning: \headheight is too small (12.0pt): 
+ Make it at least 14.49998pt.
+ We now make it that large for the rest of the document.
+ This may cause the page layout to be inconsistent, however.
+
+[5 <../figs/eigenfuncs_gauss.pdf>]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 205.
+
+
+Package Fancyhdr Warning: \headheight is too small (12.0pt): 
+ Make it at least 14.49998pt.
+ We now make it that large for the rest of the document.
+ This may cause the page layout to be inconsistent, however.
+
+[6 <../figs/energy_convergence.pdf>]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 205.
  (project.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 181.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 181.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 205.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 205.
 Package rerunfilecheck Info: File `project.out' has not changed.
 (rerunfilecheck)             Checksum: 23E852C435D0B0D6C8479ED3C27EFC30;98.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 181.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 205.
  ) 
 Here is how much of TeX's memory you used:
- 19688 strings out of 494894
- 369073 string characters out of 3178732
- 427969 words of memory out of 3000000
- 23135 multiletter control sequences out of 15000+200000
+ 19711 strings out of 494894
+ 369657 string characters out of 3178732
+ 428684 words of memory out of 3000000
+ 23150 multiletter control sequences out of 15000+200000
  539299 words of font info for 51 fonts, out of 3000000 for 9000
  1 hyphenation exception out of 8191
  40i,11n,63p,821b,738s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -925,14 +957,21 @@ Here is how much of TeX's memory you used:
 </home/kassu/.miktex/texmfs/install/fonts/type1/public/amsfonts/cm/cmmi12.pfb><
 /home/kassu/.miktex/texmfs/install/fonts/type1/public/amsfonts/cm/cmmi6.pfb></h
 ome/kassu/.miktex/texmfs/install/fonts/type1/public/amsfonts/cm/cmmi8.pfb></hom
-e/kassu/.miktex/texmfs/install/fonts/type1/public/amsfonts/cm/cmr12.pfb></home/
-kassu/.miktex/texmfs/install/fonts/type1/public/amsfonts/cm/cmr8.pfb></home/kas
-su/.miktex/texmfs/install/fonts/type1/public/amsfonts/cm/cmsy10.pfb></home/kass
-u/.miktex/texmfs/install/fonts/type1/public/amsfonts/cm/cmtt12.pfb></home/kassu
-/.miktex/texmfs/install/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on project.pdf (4 pages, 172730 bytes).
+e/kassu/.miktex/texmfs/install/fonts/type1/public/amsfonts/cm/cmmi9.pfb></home/
+kassu/.miktex/texmfs/install/fonts/type1/public/amsfonts/cm/cmr10.pfb></home/ka
+ssu/.miktex/texmfs/install/fonts/type1/public/amsfonts/cm/cmr12.pfb></home/kass
+u/.miktex/texmfs/install/fonts/type1/public/amsfonts/cm/cmr17.pfb></home/kassu/
+.miktex/texmfs/install/fonts/type1/public/amsfonts/cm/cmr6.pfb></home/kassu/.mi
+ktex/texmfs/install/fonts/type1/public/amsfonts/cm/cmr8.pfb></home/kassu/.mikte
+x/texmfs/install/fonts/type1/public/amsfonts/cm/cmr9.pfb></home/kassu/.miktex/t
+exmfs/install/fonts/type1/public/amsfonts/cm/cmsy10.pfb></home/kassu/.miktex/te
+xmfs/install/fonts/type1/public/amsfonts/cm/cmsy8.pfb></home/kassu/.miktex/texm
+fs/install/fonts/type1/public/amsfonts/cm/cmsy9.pfb></home/kassu/.miktex/texmfs
+/install/fonts/type1/public/amsfonts/cm/cmtt12.pfb></home/kassu/.miktex/texmfs/
+install/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on project.pdf (6 pages, 1258181 bytes).
 PDF statistics:
- 96 PDF objects out of 1000 (max. 8388607)
- 17 named destinations out of 1000 (max. 500000)
- 22 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 194 PDF objects out of 1000 (max. 8388607)
+ 22 named destinations out of 1000 (max. 500000)
+ 37 words of extra memory for PDF output out of 10000 (max. 10000000)
 

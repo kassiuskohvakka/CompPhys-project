@@ -31,25 +31,46 @@ def mpl_settings( axlabelsize=12, ticksize=8):
 ####################################
 
 
-# filename = 'data/results_m0.05_2019-05-09T11:09:46.npy'
-# filename = 'data/results_m0.05_2019-05-09T14:00:24.npy'
-filename = 'data/test.npy'
-
-data = np.load(filename, allow_pickle=True)
+# List of mesh parameters
+mp_list = [0.02, 0.03, 0.05, 0.08, 0.1, 0.15, 0.16, 0.17, 0.18, 0.19, 0.2, 0.21, 0.22, 0.23, 0.24, 0.25, 0.26, 0.27, 0.3]
 
 
-# Energy eigenvalues
-E = data[0]
+# Read five lowest energy eigenvalues from the files:
 
-# Eigenstates
-psi = data[1]
+E = []
+N = []
 
-# Mesh points
-mesh_points = data[2]
+for mp in mp_list:
 
-# Potential landscape
-pot = data[3]
-X, Y = np.meshgrid(np.linspace(0,1,100), np.linspace(0,1,100))
+	filename = f"data/energy_convergence_m_{str(mp).replace('.', 'p')}.npy"
+
+	data = np.load(filename, allow_pickle=True)
+
+	# Energy eigenvalues
+	E.append(data[0][0:5])
+
+	N.append(data[4])
+
+
+#E = np.array(E).transpose()
+
+print(E)
+
+
+mpl_settings(16, 15)
+f2 = plt.figure(figsize=(6,6), dpi=80)
+plt.semilogx(N, E, marker='s', zorder=5)
+plt.xlabel('$N$')
+plt.ylabel('$E$')
+plt.subplots_adjust(left=0.15, right=0.95, top=0.95, bottom=0.15)
+plt.grid(True, which='major', color='gray', linewidth=1, zorder=1)
+plt.grid(True, which='minor', color='lightgray', linewidth=1, zorder=2)
+plt.legend([f"$E_{n}$" for n in range(5)])
+plt.show()
+f2.savefig("figs/energy_convergence.pdf")
+
+
+
 
 
 
@@ -130,23 +151,23 @@ X, Y = np.meshgrid(np.linspace(0,1,100), np.linspace(0,1,100))
 
 
 ## Visually check that triangulation was successful
-mpl_settings(20, 18)
-f2 = plt.figure(figsize=(5,5), dpi=80)
-# for tr in mesh.cells['triangle']:
-#   plt.plot([mesh.points[tr[0]][0] , mesh.points[tr[1]][0]], [mesh.points[tr[0]][1], mesh.points[tr[1]][1]])
-#   plt.plot([mesh.points[tr[1]][0] , mesh.points[tr[2]][0]], [mesh.points[tr[1]][1], mesh.points[tr[2]][1]])
-#   plt.plot([mesh.points[tr[2]][0] , mesh.points[tr[0]][0]], [mesh.points[tr[2]][1], mesh.points[tr[0]][1]])
-trunc_pot = np.array([min(p, abs(min(pot))) for p in pot])
-trunc_pot = np.reshape(trunc_pot, X.shape)
+# mpl_settings(20, 18)
+# f2 = plt.figure(figsize=(5,5), dpi=80)
+# # for tr in mesh.cells['triangle']:
+# #   plt.plot([mesh.points[tr[0]][0] , mesh.points[tr[1]][0]], [mesh.points[tr[0]][1], mesh.points[tr[1]][1]])
+# #   plt.plot([mesh.points[tr[1]][0] , mesh.points[tr[2]][0]], [mesh.points[tr[1]][1], mesh.points[tr[2]][1]])
+# #   plt.plot([mesh.points[tr[2]][0] , mesh.points[tr[0]][0]], [mesh.points[tr[2]][1], mesh.points[tr[0]][1]])
+# trunc_pot = np.array([min(p, abs(min(pot))) for p in pot])
+# trunc_pot = np.reshape(trunc_pot, X.shape)
 
-plt.contourf(X,Y, trunc_pot, cmap='bwr', levels=20)
-plt.scatter(mesh_points[:,0], mesh_points[:,1], s=1)
+# plt.contourf(X,Y, trunc_pot, cmap='bwr', levels=20)
+# plt.scatter(mesh_points[:,0], mesh_points[:,1], s=1)
 
-plt.xlabel('$x$')
-plt.ylabel('$y$')
-plt.subplots_adjust(left=0.15, right=0.95, top=0.95, bottom=0.15)
-plt.show()
-f2.savefig("figs/pot.pdf")
+# plt.xlabel('$x$')
+# plt.ylabel('$y$')
+# plt.subplots_adjust(left=0.15, right=0.95, top=0.95, bottom=0.15)
+# plt.show()
+# f2.savefig("figs/pot.pdf")
 
 
 

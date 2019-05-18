@@ -156,6 +156,30 @@ where $A_k$ is the area of the triangle $\Omega_k$ and the labelling of the node
 
 After defining a suitable potential function $V(x,y)$, we are ready to start constructing the matrices. Each of the matrices is of size $N \times N$, with row $i$ containing nonzero elements on all columns $j$ if there exists an edge connecting nodes $i$ and $j$, i.e. if the basis functions $\phi_i$ and $\phi_j$ overlap. The value of each of the nonzero elements is the sum of the integral of the relevant functions over the two (or, on the boundary, just one) common triangular subdomains. See Fig.~\ref{fig: triangles} b) and the colored relevant subdomains. Computing the integrals in Eq.~(\ref{eq: readyFEMeq}) and carefully inserting them into the matrices, we are left with all the pieces needed to solve the generalized eigenvalue problem in Eq.~(\ref{eq: matrixFormFEMeq}).
 
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.5\textwidth]{../figs/pot.pdf}
+\caption{The potential landscape used in initial tests of the FEM solver. The blue region in the middle is the Gaussian potential minimum and the red region is a high potential barrier approximating an infinite potential well. The blue dots are the triangulation nodes for $N=3436$. }
+\label{fig: gaussPot}
+\end{figure}
+
+
+\begin{figure}[H]
+\centering
+\vspace{-5cm}
+\includegraphics[width=\textwidth]{../figs/eigenfuncs_gauss.pdf}
+\caption{The six lowest-energy eigenstates in the Gaussian potential well with $N=3436$. Note that it seems based on our FEM solution that only three of the states are bound to the potential minimum. Notice also the near-degenerate state pairs $(\psi_1, \psi_2)$ and $(\psi_4, \psi_5)$.}
+\label{fig: gaussEigFuncs}
+\end{figure}
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.7\textwidth]{../figs/energy_convergence.pdf}
+\caption{The convergence of the energy eigenvalues as the FEM basis dimension $N$ increases.}
+\label{fig: gaussEigVals}
+\end{figure}
+
 
 
 %\begin{figure}[h]
