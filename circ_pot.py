@@ -8,7 +8,7 @@ from mpl_toolkits.mplot3d import Axes3D
 import datetime
 import time
 
-#import threading
+import threading
 import multiprocessing
 
 from scipy import linalg as la
@@ -125,8 +125,8 @@ p3 = geom.add_point([0.0, 1.0, 0.0], lcar=mesh_parameter)
 # p4 = geom.add_point([0.1, 0.1, 0.0], lcar=mesh_parameter)
 #p5 = geom.add_point([0.9, 0.9, 0.0], lcar=mesh_parameter)
 
-circ1 = geom.add_disk([0.5, 0.5, 0.0], radius0=0.2, char_length=0.01)
-circ2 = geom.add_disk([0.5, 0.5, 0.0], radius0=0.36, char_length=0.01)
+circ1 = geom.add_disk([0.5, 0.5, 0.0], radius0=0.2, char_length=0.05)
+circ2 = geom.add_disk([0.5, 0.5, 0.0], radius0=0.36, char_length=0.05)
 circ3 = geom.add_disk([0.5, 0.5, 0.0], radius0=0.05, char_length=mesh_parameter)
 
 # geom.add_physical(p4)
@@ -202,41 +202,41 @@ S = np.zeros((N,N))
 # Start constructing the overlap matrix
 print(f'\tOverlap...', end="", flush=True)
 
-# def construct_overlap(S, pos, output):
+def construct_overlap(S, triangles):
 
-for i, tr in enumerate(mesh.cells['triangle']):
+    for i, tr in enumerate(triangles):
 
-    overlap00 = quadpy.triangle.integrate( lambda x: FEM_hat(triangle_coords[i], 0, x)*FEM_hat(triangle_coords[i], 0, x),
-                                            triangle_coords[i], quadpy.triangle.Strang(9) )
-    overlap11 = quadpy.triangle.integrate( lambda x: FEM_hat(triangle_coords[i], 1, x)*FEM_hat(triangle_coords[i], 1, x),
-                                            triangle_coords[i], quadpy.triangle.Strang(9) )
-    overlap22 = quadpy.triangle.integrate( lambda x: FEM_hat(triangle_coords[i], 2, x)*FEM_hat(triangle_coords[i], 2, x),
-                                            triangle_coords[i], quadpy.triangle.Strang(9) )
-
-
-    overlap01 = quadpy.triangle.integrate( lambda x: FEM_hat(triangle_coords[i], 0, x)*FEM_hat(triangle_coords[i], 1, x),
-    										triangle_coords[i], quadpy.triangle.Strang(9) )
-    overlap02 = quadpy.triangle.integrate( lambda x: FEM_hat(triangle_coords[i], 0, x)*FEM_hat(triangle_coords[i], 2, x),
-    										triangle_coords[i], quadpy.triangle.Strang(9) )
-    overlap12 = quadpy.triangle.integrate( lambda x: FEM_hat(triangle_coords[i], 2, x)*FEM_hat(triangle_coords[i], 2, x),
-                                            triangle_coords[i], quadpy.triangle.Strang(9) )
-
-    S[tr[0], tr[1]] += overlap01
-    S[tr[1], tr[0]] += overlap01
-
-    S[tr[0], tr[2]] += overlap02
-    S[tr[2], tr[0]] += overlap02
-
-    S[tr[1], tr[2]] += overlap12
-    S[tr[2], tr[1]] += overlap12
-
-    S[tr[0], tr[0]] += overlap00
-    S[tr[1], tr[1]] += overlap11
-    S[tr[2], tr[2]] += overlap22
-    # output.put((pos, S))
+        overlap00 = quadpy.triangle.integrate( lambda x: FEM_hat(triangle_coords[i], 0, x)*FEM_hat(triangle_coords[i], 0, x),
+                                                triangle_coords[i], quadpy.triangle.Strang(9) )
+        overlap11 = quadpy.triangle.integrate( lambda x: FEM_hat(triangle_coords[i], 1, x)*FEM_hat(triangle_coords[i], 1, x),
+                                                triangle_coords[i], quadpy.triangle.Strang(9) )
+        overlap22 = quadpy.triangle.integrate( lambda x: FEM_hat(triangle_coords[i], 2, x)*FEM_hat(triangle_coords[i], 2, x),
+                                                triangle_coords[i], quadpy.triangle.Strang(9) )
 
 
-# construct_overlap()
+        overlap01 = quadpy.triangle.integrate( lambda x: FEM_hat(triangle_coords[i], 0, x)*FEM_hat(triangle_coords[i], 1, x),
+        										triangle_coords[i], quadpy.triangle.Strang(9) )
+        overlap02 = quadpy.triangle.integrate( lambda x: FEM_hat(triangle_coords[i], 0, x)*FEM_hat(triangle_coords[i], 2, x),
+        										triangle_coords[i], quadpy.triangle.Strang(9) )
+        overlap12 = quadpy.triangle.integrate( lambda x: FEM_hat(triangle_coords[i], 2, x)*FEM_hat(triangle_coords[i], 2, x),
+                                                triangle_coords[i], quadpy.triangle.Strang(9) )
+
+        S[tr[0], tr[1]] += overlap01
+        S[tr[1], tr[0]] += overlap01
+
+        S[tr[0], tr[2]] += overlap02
+        S[tr[2], tr[0]] += overlap02
+
+        S[tr[1], tr[2]] += overlap12
+        S[tr[2], tr[1]] += overlap12
+
+        S[tr[0], tr[0]] += overlap00
+        S[tr[1], tr[1]] += overlap11
+        S[tr[2], tr[2]] += overlap22
+        # output.put((pos, S))
+
+
+construct_overlap(S, mesh.cells['triangle'])
 
 # print(S)
 print(f'DONE!')
@@ -244,86 +244,128 @@ print(f'DONE!')
 # Start constructing the potential matrix
 print(f'\tPotential matrix...', end="", flush=True)
 
-# def construct_potential(V, pos, output):
-for i, tr in enumerate(mesh.cells['triangle']):
+def construct_potential(V, triangles):
+    for i, tr in enumerate(triangles):
 
-    pot00 = quadpy.triangle.integrate( lambda x: pot(x)*FEM_hat(triangle_coords[i], 0, x)*FEM_hat(triangle_coords[i], 0, x),
-                                            triangle_coords[i], quadpy.triangle.Strang(9) )
-    pot11 = quadpy.triangle.integrate( lambda x: pot(x)*FEM_hat(triangle_coords[i], 1, x)*FEM_hat(triangle_coords[i], 1, x),
-                                            triangle_coords[i], quadpy.triangle.Strang(9) )
-    pot22 = quadpy.triangle.integrate( lambda x: pot(x)*FEM_hat(triangle_coords[i], 2, x)*FEM_hat(triangle_coords[i], 2, x),
-                                            triangle_coords[i], quadpy.triangle.Strang(9) )
+        pot00 = quadpy.triangle.integrate( lambda x: pot(x)*FEM_hat(triangle_coords[i], 0, x)*FEM_hat(triangle_coords[i], 0, x),
+                                                triangle_coords[i], quadpy.triangle.Strang(9) )
+        pot11 = quadpy.triangle.integrate( lambda x: pot(x)*FEM_hat(triangle_coords[i], 1, x)*FEM_hat(triangle_coords[i], 1, x),
+                                                triangle_coords[i], quadpy.triangle.Strang(9) )
+        pot22 = quadpy.triangle.integrate( lambda x: pot(x)*FEM_hat(triangle_coords[i], 2, x)*FEM_hat(triangle_coords[i], 2, x),
+                                                triangle_coords[i], quadpy.triangle.Strang(9) )
 
 
-    pot01 = quadpy.triangle.integrate( lambda x: pot(x)*FEM_hat(triangle_coords[i], 0, x)*FEM_hat(triangle_coords[i], 1, x),
-                                            triangle_coords[i], quadpy.triangle.Strang(9) )
-    pot02 = quadpy.triangle.integrate( lambda x: pot(x)*FEM_hat(triangle_coords[i], 0, x)*FEM_hat(triangle_coords[i], 2, x),
-                                            triangle_coords[i], quadpy.triangle.Strang(9) )
-    pot12 = quadpy.triangle.integrate( lambda x: pot(x)*FEM_hat(triangle_coords[i], 2, x)*FEM_hat(triangle_coords[i], 2, x),
-                                            triangle_coords[i], quadpy.triangle.Strang(9) )
+        pot01 = quadpy.triangle.integrate( lambda x: pot(x)*FEM_hat(triangle_coords[i], 0, x)*FEM_hat(triangle_coords[i], 1, x),
+                                                triangle_coords[i], quadpy.triangle.Strang(9) )
+        pot02 = quadpy.triangle.integrate( lambda x: pot(x)*FEM_hat(triangle_coords[i], 0, x)*FEM_hat(triangle_coords[i], 2, x),
+                                                triangle_coords[i], quadpy.triangle.Strang(9) )
+        pot12 = quadpy.triangle.integrate( lambda x: pot(x)*FEM_hat(triangle_coords[i], 2, x)*FEM_hat(triangle_coords[i], 2, x),
+                                                triangle_coords[i], quadpy.triangle.Strang(9) )
 
-    V[tr[0], tr[1]] += pot01
-    V[tr[1], tr[0]] += pot01
+        V[tr[0], tr[1]] += pot01
+        V[tr[1], tr[0]] += pot01
 
-    V[tr[0], tr[2]] += pot02
-    V[tr[2], tr[0]] += pot02
+        V[tr[0], tr[2]] += pot02
+        V[tr[2], tr[0]] += pot02
 
-    V[tr[1], tr[2]] += pot12
-    V[tr[2], tr[1]] += pot12
+        V[tr[1], tr[2]] += pot12
+        V[tr[2], tr[1]] += pot12
 
-    V[tr[0], tr[0]] += pot00
-    V[tr[1], tr[1]] += pot11
-    V[tr[2], tr[2]] += pot22
+        V[tr[0], tr[0]] += pot00
+        V[tr[1], tr[1]] += pot11
+        V[tr[2], tr[2]] += pot22
     # output.put((pos, V))
 
-# construct_potential()
+construct_potential(V, mesh.cells['triangle'])
 
 print(f'DONE!')
 
 # Start constructing the potential matrix
 print(f'\tKinetic matrix...', end="", flush=True)
 
-# def construct_kinetic(T, pos, output):
-for i, tr in enumerate(mesh.cells['triangle']):
+def construct_kinetic(T, triangles):
+    for i, tr in enumerate(triangles):
 
-    kin00 = quadpy.triangle.integrate( lambda x: FEM_hat_grad(triangle_coords[i], 0, 0, x),
-                                            triangle_coords[i], quadpy.triangle.Strang(9) )
-    kin11 = quadpy.triangle.integrate( lambda x: FEM_hat_grad(triangle_coords[i], 1, 1, x),
-                                            triangle_coords[i], quadpy.triangle.Strang(9) )
-    kin22 = quadpy.triangle.integrate( lambda x: FEM_hat_grad(triangle_coords[i], 2, 2, x),
-                                            triangle_coords[i], quadpy.triangle.Strang(9) )
+        kin00 = quadpy.triangle.integrate( lambda x: FEM_hat_grad(triangle_coords[i], 0, 0, x),
+                                                triangle_coords[i], quadpy.triangle.Strang(9) )
+        kin11 = quadpy.triangle.integrate( lambda x: FEM_hat_grad(triangle_coords[i], 1, 1, x),
+                                                triangle_coords[i], quadpy.triangle.Strang(9) )
+        kin22 = quadpy.triangle.integrate( lambda x: FEM_hat_grad(triangle_coords[i], 2, 2, x),
+                                                triangle_coords[i], quadpy.triangle.Strang(9) )
 
 
-    kin01 = quadpy.triangle.integrate( lambda x: FEM_hat_grad(triangle_coords[i], 0, 1, x),
-                                            triangle_coords[i], quadpy.triangle.Strang(9) )
-    kin02 = quadpy.triangle.integrate( lambda x: FEM_hat_grad(triangle_coords[i], 0, 2, x),
-                                            triangle_coords[i], quadpy.triangle.Strang(9) )
-    kin12 = quadpy.triangle.integrate( lambda x: FEM_hat_grad(triangle_coords[i], 1, 2, x),
-                                            triangle_coords[i], quadpy.triangle.Strang(9) )
+        kin01 = quadpy.triangle.integrate( lambda x: FEM_hat_grad(triangle_coords[i], 0, 1, x),
+                                                triangle_coords[i], quadpy.triangle.Strang(9) )
+        kin02 = quadpy.triangle.integrate( lambda x: FEM_hat_grad(triangle_coords[i], 0, 2, x),
+                                                triangle_coords[i], quadpy.triangle.Strang(9) )
+        kin12 = quadpy.triangle.integrate( lambda x: FEM_hat_grad(triangle_coords[i], 1, 2, x),
+                                                triangle_coords[i], quadpy.triangle.Strang(9) )
 
-    T[tr[0], tr[1]] += kin01
-    T[tr[1], tr[0]] += kin01
+        T[tr[0], tr[1]] += kin01
+        T[tr[1], tr[0]] += kin01
 
-    T[tr[0], tr[2]] += kin02
-    T[tr[2], tr[0]] += kin02
+        T[tr[0], tr[2]] += kin02
+        T[tr[2], tr[0]] += kin02
 
-    T[tr[1], tr[2]] += kin12
-    T[tr[2], tr[1]] += kin12
+        T[tr[1], tr[2]] += kin12
+        T[tr[2], tr[1]] += kin12
 
-    T[tr[0], tr[0]] += kin00
-    T[tr[1], tr[1]] += kin11
-    T[tr[2], tr[2]] += kin22
+        T[tr[0], tr[0]] += kin00
+        T[tr[1], tr[1]] += kin11
+        T[tr[2], tr[2]] += kin22
     # output.put((pos, T))
 
-# construct_kinetic()
+construct_kinetic(T, mesh.cells['triangle'])
 
-output = multiprocessing.Queue()
+#output = multiprocessing.Queue()
+# class overlapThread (threading.Thread):
+#    def __init__(self, threadID, name, counter):
+#       threading.Thread.__init__(self)
+#       self.threadID = threadID
+#       self.name = name
+#       self.counter = counter
+#    def run(self):
+#       print("Starting " + self.name)
+#       # Get lock to synchronize threads
+#       # threading.threadLock.acquire()
+#       construct_overlap(S, mesh.cells['triangle'])
+#       # Free lock to release next thread
+#       # threading.threadLock.release()
+
+# class potentialThread (threading.Thread):
+#    def __init__(self, threadID, name, counter):
+#       threading.Thread.__init__(self)
+#       self.threadID = threadID
+#       self.name = name
+#       self.counter = counter
+#    def run(self):
+#       print("Starting " + self.name)
+#       # Get lock to synchronize threads
+#       # threading.threadLock.acquire()
+#       construct_potential(V, mesh.cells['triangle'])
+#       # Free lock to release next thread
+#       # threading.threadLock.release()
+
+# class kineticThread (threading.Thread):
+#    def __init__(self, threadID, name, counter):
+#       threading.Thread.__init__(self)
+#       self.threadID = threadID
+#       self.name = name
+#       self.counter = counter
+#    def run(self):
+#       print("Starting " + self.name)
+#       # Get lock to synchronize threads
+#       # threading.threadLock.acquire()
+#       construct_kinetic(T, mesh.cells['triangle'])
+#       # Free lock to release next thread
+#       # threading.threadLock.release()
+
 
 
 #def run_threads():
-# t1 = multiprocessing.Process(target=construct_overlap, args=(S, 1, output))
-# t2 = multiprocessing.Process(target=construct_potential, args=(V, 2, output))
-# t3 = multiprocessing.Process(target=construct_kinetic, args=(T, 3, output))
+# t1 = overlapThread(1, "Overlap-Thread", 1)
+# t2 = potentialThread(1, "Potential-Thread", 1)
+# t3 = kineticThread(1, "Kinetic-Thread", 1)
 
 # t1.start()
 # t2.start()
@@ -362,9 +404,23 @@ print(f'Solving the generalized eigenvalue problem...', end="", flush=True)
 
 H = 0.5*T + V
 
-E, psi = la.eigh(H[1:-1, 1:-1], b=S[1:-1, 1:-1])
+inside_points = []
 
-psi = np.vstack((np.zeros((1, N-2)), psi, np.zeros((1, N-2))))
+print(mesh.points)
+for i, p in enumerate(mesh.points):
+    if p[0]<0.01 or p[0]>0.99 or p[1]<0.01 or p[1]>0.99:
+        H = np.delete(np.delete(H,i,0),i,1)#[[0:i,i+1:],[0:i,i+1:]]
+        S = np.delete(np.delete(S,i,0),i,1) #S[[0:i,i+1:],[0:i,i+1:]]
+    else:
+        inside_points.append(p)
+
+inside_points = np.array(inside_points)
+
+# E, psi = la.eigh(H[1:-1, 1:-1], b=S[1:-1, 1:-1])
+E, psi = la.eigh(H, b=S)
+
+
+# psi = np.vstack((np.zeros((1, N-2)), psi, np.zeros((1, N-2))))
 
 print(f'DONE!')
 
@@ -392,7 +448,8 @@ if (SAVE_TO_FILE):
     #filename = f"data/energy_convergence_m_{str(mesh_parameter).replace('.', 'p')}"
     filename = "data/circ_pot_test"
 
-    data = np.array([E, psi, mesh.points, Z, N])
+    # data = np.array([E, psi, mesh.points, Z, N])
+    data = np.array([E, psi, inside_points, Z, N])
 
     np.save(filename, data, allow_pickle=True)
 

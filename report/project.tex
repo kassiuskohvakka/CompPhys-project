@@ -6,7 +6,6 @@
 \usepackage[english]{babel}
 \usepackage{mathtools}
 \usepackage{siunitx}
-%\usepackage[utf8]{inputenc}
 \usepackage[pdftex]{graphicx}
 \usepackage{icomma}
 \usepackage{hyperref}
@@ -25,6 +24,13 @@
 %\usepackage{floatrow}
 %\floatsetup[figure]{style=plain,subcapbesideposition=top}
 \usepackage{wrapfig, blindtext}
+
+
+\usepackage[
+    backend=bibtex,
+    style=numeric,
+  ]{biblatex}
+\addbibresource{project.bib}
 
 
 
@@ -70,9 +76,19 @@
 \vspace{-0.4cm}
 
 \exerline
-
+\vspace{-0.7cm}
 \section{Background}
 
+The finite element method (FEM) is a numerical method for solving boundary value problems for partial differential equations used throughout engineering and the sciences. Numerical methods are required in cases where analytical solutions to the problems are intractable to obtain or require abstractions and simplifications which make the solution not applicable in real life. Particularly in engineering, such methods are vital in designing, for instance, load-bearing structures, complicated machine parts, and vehicle chassis which can safely withstand the forces at play and -- if need be -- give in without threatening the lives of the passangers. Problems relating to heat transfer, wave propagation, fluid flow, electromagnetic fields, and other physical phenomena governed by laws expressed in terms of partial differential equations are omnipresent in engineering as well as physics.
+
+One such problem is solving the time-independent Schrödinger equation. The stationary states of a quantum mechanical system, such as a particle in an external potential, are found by computing the eigenstates of the Hamiltonian operator $\hat{H}$ defined by partial derivatives. While analytic solutions for a few simple potentials are known (e.g. particle-in-a-box and the harmonic oscillator), no analytic solution exists for an arbitrary potential. Thus, numerical computations are required to find approximate solutions in challenging geometries or non-trivial potentials.
+
+The standard approach to the problem is the discretization of the derivatives present in the Hamiltonian, leading to a matrix representation of the Hamiltonian and an eigenproblem for an ordinary matrix. The two common discretization methods, namely, finite difference and FEM, both can be used to this end. The major advantage of the latter over the former is the ability to freely choose the size of the finite elements (triangles in 2D) at each point in the problem domain. This allows significant reductions in the computational cost and memory requirements by using a less dense mesh in regions of lesser importance. Therefore we may take full advantage of the accuracy of the dense grid where it matters while sacrificing less resources for unimportant aspects of the problem.
+
+In this project, I implemented a FEM solver for the time-independent Schrödinger equation in two dimensions. The correctness of the solution is assessed by taking a look at the convergence of the energy eigenvalues. Subsequently, the solver is tested for a non-trivial potential. The code was written in python and takes advantage of some of the numerical computation libraries, such as numpy and scipy.
+
+
+\cleardoublepage
 \section{Theory and methods}
 
 The two-dimensional time-independent Schrödinger equation is given by
@@ -157,6 +173,8 @@ where $A_k$ is the area of the triangle $\Omega_k$ and the labelling of the node
 
 After defining a suitable potential function $V(x,y)$, we are ready to start constructing the matrices. Each of the matrices is of size $N \times N$, with row $i$ containing nonzero elements on all columns $j$ if there exists an edge connecting nodes $i$ and $j$, i.e. if the basis functions $\phi_i$ and $\phi_j$ overlap. The value of each of the nonzero elements is the sum of the integral of the relevant functions over the two (or, on the boundary, just one) common triangular subdomains. See Fig.~\ref{fig: triangles} b) and the colored relevant subdomains. Computing the integrals in Eq.~(\ref{eq: readyFEMeq}) and carefully inserting them into the matrices, we are left with all the pieces needed to solve the generalized eigenvalue problem in Eq.~(\ref{eq: matrixFormFEMeq}).
 
+\cleardoublepage
+
 \section{Results}
 
 \subsection{Testing solver and convergence}
@@ -173,6 +191,8 @@ After defining a suitable potential function $V(x,y)$, we are ready to start con
 The initial tests were carried out with simple Gaussian potential minimum in a $[0,1]\times[0,1]$ unit square. The potential landscape is shown in Fig.~\ref{fig: gaussPot} along with the mesh points created by the \texttt{pygmsh} triangulation. The solver was run for this potential and triangulation and the resulting eigenstates and -energies are shown in Fig.~\ref{fig: gaussEigFuncs}. Visual inspection reveals at least that there are no catastrophic errors in the matrices or the solver.
 
 In addition to simple visual inspection, we can also, for instance, check whether the energy eigenvalues got from the solver seem to be converging to a given value as the dimension $N$ of the FEM basis is increased. The apparent convergence of the five lowest energy eigenvalues is shown in Fig.~\ref{fig: gaussEigVals}. At around $N=3500$, the eigenvalues seem to no longer be changing sporadically, implying that our FEM approximation may be getting quite close to the true solution. Given large enough basis dimension, our solver therefore seems to be solving the problem correctly.
+
+The Dirichlet boundary conditions were enforced by removing the rows and columns corresponding to boundary points from the matrices $H$ and $S$ before solving the generalized eigenvalue problem, effectively setting the coefficients of the FEM basis functions centered at nodes on the boundary to zero. In some simulations and with some mesh sizes, this seemed to create stability issues in the solver. To counteract these problems, a high potential barrier was introduced to the boundaries of the problem domain. Approximating the infinite potential barrier normally achieved by simply enforcing the zero boundary condition, this seemed to be enough to stabilize the solutions. 
 
 
 \begin{figure}[H]
@@ -196,7 +216,7 @@ In addition to simple visual inspection, we can also, for instance, check whethe
 
 To inspect the behaviour of the solver in a different potential landscape, we define a 2D ring-shaped potential well, surrounded on the inside and outside by a high potential. Next, we would like to achieve something like an adaptive meshing scheme to try out our solver with a noticably non-uniform mesh and to keep our FEM basis dimension manageably low while spending our mesh points where it matters, around areas of interesting eigenstate behaviour.
 
-I quickly realized that as it stands, the \texttt{pygmsh} tool kit used in the triangulation lends itself quite poorly to adaptive meshing, so the next best thing was done. The trianglulation software was more manually instructed to create smaller finite elements around the ring-shaped potential well, while creating larger triangles both outside and inside the ring. Both the potential landscape and the non-uniformly distributed mesh points created by the modified triangulation algorithm are shown in Fig.~\ref{fig: circlePot}.
+I quickly realized that as it stands, the \texttt{pygmsh} tool kit used in the triangulation lends itself quite poorly to adaptive meshing, so the next best thing was done. The triangulation software was more manually instructed to create smaller finite elements around the ring-shaped potential well, while creating larger triangles both outside and inside the ring. Both the potential landscape and the non-uniformly distributed mesh points created by the modified triangulation algorithm are shown in Fig.~\ref{fig: circlePot}.
 
 \begin{wrapfigure}{l}{0.5\textwidth}
 \vspace{-20pt}
@@ -208,7 +228,13 @@ I quickly realized that as it stands, the \texttt{pygmsh} tool kit used in the t
 \end{center}
 \end{wrapfigure}
 
-The modified mesh does little to make solving the generalized eigenproblem any harder. Fig.~\ref{fig: circleEigFuncs} shows the six lowest-energy eigenstates inside the ring-shaped potential well. The eigenstates seem to obey intuition as increase in energy generally translates directly in an addition of a symmetrically-distributed antinode. Interestingly, the more accurate mesh seems to be able to differentiate between the two near-degenerate states $\psi_1$ and $\psi_2$, whose only difference is the direction of the line connecting the antinodal points. Possibly due to the boundary being so close by and rectangular, the diagonally-oriented antinodes of $\psi_1$ lead to an ever so slightly lower energy in comparison to $\psi_2$ oriented along the $x$-axis.
+The modified mesh does little to make solving the generalized eigenproblem any harder. Fig.~\ref{fig: circleEigFuncs} shows the six lowest-energy eigenstates inside the ring-shaped potential well. The eigenstates seem to obey intuition as increase in energy generally translates directly in an addition of a symmetrically-distributed antinode. Interestingly, the more accurate mesh seems to be able to differentiate between the two near-degenerate states $\psi_1$ and $\psi_2$, whose only difference is the orientation of the line connecting the antinodal points. Possibly due to the boundary being so close by and rectangular, the diagonally-oriented antinodes of $\psi_1$ lead to an ever so slightly lower energy in comparison to $\psi_2$ whose antinodes are more oriented along the $x$-axis. Similarly, in eigenstates $\psi_3$ and $\psi_4$ the only difference is the diagonal vs. axial orientation. Here as well the breaking of the symmetry is due to the proxmity of the rectangular boundary and should vanish by increasing the simulation box size or by e.g. making the box itself spherically symmetrical.
+
+
+\section{Conclusions and further studies}
+Both the visual inspection of the eigenstates produced by the FEM solver and the apparent convergence of the energy eigenvalues seem to indicate that the solver is working as intended. However, the solver is not terribly efficient especially since all attempts to multithread the construction of the matrices in python seemed only to increase the total running time. This was to be anticipated, however, since python's Global Interpreter Lock~\cite{GILdoc} effectively prevents multicore execution of separate threads. The performance was not completely awful, as solving the ring-shaped potential well problem with $N=4763$ took 76.68 seconds. Increasing the FEM basis dimension further would quickly result in an untracktable running time. With proper parallelization using a suitable (non-interpreted) language, such as C++, the performance could be improved significantly. The vectorization capabilities present in, for instance, the library functions used to integrate over the triangular domains lended themselves poorly to our needs as the integrands differ significantly from domain to domain.
+
+
 
 
 \begin{figure}[H]
@@ -220,6 +246,9 @@ The modified mesh does little to make solving the generalized eigenproblem any h
 \end{figure}
 
 
+\cleardoublepage
+
+\printbibliography
 
 
 

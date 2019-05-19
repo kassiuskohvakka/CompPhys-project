@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6700) (preloaded format=pdflatex 2018.5.27)  18 MAY 2019 16:09
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6700) (preloaded format=pdflatex 2018.5.27)  19 MAY 2019 15:18
 entering extended mode
 **./project.tex
 (project.tex
@@ -730,31 +730,270 @@ Package: xspace 2014/10/28 v1.13 Space after command names (DPC,MH)
 \c@blind@pangramcount=\count310
 \c@blind@pangrammax=\count311
 )
+(/home/kassu/.miktex/texmfs/install/tex/latex/biblatex/biblatex.sty
+Package: biblatex 2018/11/02 v3.12 programmable bibliographies (PK/MW)
+
+(/home/kassu/.miktex/texmfs/install/tex/latex/etoolbox/etoolbox.sty
+Package: etoolbox 2018/08/19 v2.5f e-TeX tools for LaTeX (JAW)
+\etb@tempcnta=\count312
+)
+(/home/kassu/.miktex/texmfs/install/tex/latex/logreq/logreq.sty
+Package: logreq 2010/08/04 v1.0 xml request logger
+\lrq@indent=\count313
+
+(/home/kassu/.miktex/texmfs/install/tex/latex/logreq/logreq.def
+File: logreq.def 2010/08/04 v1.0 logreq spec v1.0
+))
+(/home/kassu/.miktex/texmfs/install/tex/latex/base/ifthen.sty
+Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
+)
+\c@tabx@nest=\count314
+\c@listtotal=\count315
+\c@listcount=\count316
+\c@liststart=\count317
+\c@liststop=\count318
+\c@citecount=\count319
+\c@citetotal=\count320
+\c@multicitecount=\count321
+\c@multicitetotal=\count322
+\c@instcount=\count323
+\c@maxnames=\count324
+\c@minnames=\count325
+\c@maxitems=\count326
+\c@minitems=\count327
+\c@citecounter=\count328
+\c@maxcitecounter=\count329
+\c@savedcitecounter=\count330
+\c@uniquelist=\count331
+\c@uniquename=\count332
+\c@refsection=\count333
+\c@refsegment=\count334
+\c@maxextratitle=\count335
+\c@maxextratitleyear=\count336
+\c@maxextraname=\count337
+\c@maxextradate=\count338
+\c@maxextraalpha=\count339
+\c@abbrvpenalty=\count340
+\c@highnamepenalty=\count341
+\c@lownamepenalty=\count342
+\c@maxparens=\count343
+\c@parenlevel=\count344
+\blx@tempcnta=\count345
+\blx@tempcntb=\count346
+\blx@tempcntc=\count347
+\blx@maxsection=\count348
+\blx@maxsegment@0=\count349
+\blx@notetype=\count350
+\blx@parenlevel@text=\count351
+\blx@parenlevel@foot=\count352
+\blx@sectionciteorder@0=\count353
+\blx@entrysetcounter=\count354
+\labelnumberwidth=\skip72
+\labelalphawidth=\skip73
+\biblabelsep=\skip74
+\bibitemsep=\skip75
+\bibnamesep=\skip76
+\bibinitsep=\skip77
+\bibparsep=\skip78
+\bibhang=\skip79
+\blx@bcfin=\read2
+\blx@bcfout=\write3
+\c@mincomprange=\count355
+\c@maxcomprange=\count356
+\c@mincompwidth=\count357
+Package biblatex Info: Trying to load biblatex default data model...
+Package biblatex Info: ... file 'blx-dm.def' found.
+
+(/home/kassu/.miktex/texmfs/install/tex/latex/biblatex/blx-dm.def
+File: blx-dm.def 2018/11/02 v3.12 biblatex localization (PK/MW)
+)
+Package biblatex Info: Trying to load biblatex style data model...
+Package biblatex Info: ... file 'numeric.dbx' not found.
+Package biblatex Info: Trying to load biblatex custom data model...
+Package biblatex Info: ... file 'biblatex-dm.cfg' not found.
+\c@afterword=\count358
+\c@savedafterword=\count359
+\c@annotator=\count360
+\c@savedannotator=\count361
+\c@author=\count362
+\c@savedauthor=\count363
+\c@bookauthor=\count364
+\c@savedbookauthor=\count365
+\c@commentator=\count366
+\c@savedcommentator=\count367
+\c@editor=\count368
+\c@savededitor=\count369
+\c@editora=\count370
+\c@savededitora=\count371
+\c@editorb=\count372
+\c@savededitorb=\count373
+\c@editorc=\count374
+\c@savededitorc=\count375
+\c@foreword=\count376
+\c@savedforeword=\count377
+\c@holder=\count378
+\c@savedholder=\count379
+\c@introduction=\count380
+\c@savedintroduction=\count381
+\c@namea=\count382
+\c@savednamea=\count383
+\c@nameb=\count384
+\c@savednameb=\count385
+\c@namec=\count386
+\c@savednamec=\count387
+\c@translator=\count388
+\c@savedtranslator=\count389
+\c@shortauthor=\count390
+\c@savedshortauthor=\count391
+\c@shorteditor=\count392
+\c@savedshorteditor=\count393
+\c@labelname=\count394
+\c@savedlabelname=\count395
+\c@institution=\count396
+\c@savedinstitution=\count397
+\c@lista=\count398
+\c@savedlista=\count399
+\c@listb=\count400
+\c@savedlistb=\count401
+\c@listc=\count402
+\c@savedlistc=\count403
+\c@listd=\count404
+\c@savedlistd=\count405
+\c@liste=\count406
+\c@savedliste=\count407
+\c@listf=\count408
+\c@savedlistf=\count409
+\c@location=\count410
+\c@savedlocation=\count411
+\c@organization=\count412
+\c@savedorganization=\count413
+\c@origlocation=\count414
+\c@savedoriglocation=\count415
+\c@origpublisher=\count416
+\c@savedorigpublisher=\count417
+\c@publisher=\count418
+\c@savedpublisher=\count419
+\c@language=\count420
+\c@savedlanguage=\count421
+\c@origlanguage=\count422
+\c@savedoriglanguage=\count423
+\c@pageref=\count424
+\c@savedpageref=\count425
+\shorthandwidth=\skip80
+\shortjournalwidth=\skip81
+\shortserieswidth=\skip82
+\shorttitlewidth=\skip83
+\shortauthorwidth=\skip84
+\shorteditorwidth=\skip85
+\locallabelnumberwidth=\skip86
+\locallabelalphawidth=\skip87
+\localshorthandwidth=\skip88
+\localshortjournalwidth=\skip89
+\localshortserieswidth=\skip90
+\localshorttitlewidth=\skip91
+\localshortauthorwidth=\skip92
+\localshorteditorwidth=\skip93
+Package biblatex Info: Trying to load compatibility code...
+Package biblatex Info: ... file 'blx-compat.def' found.
+
+(/home/kassu/.miktex/texmfs/install/tex/latex/biblatex/blx-compat.def
+File: blx-compat.def 2018/11/02 v3.12 biblatex compatibility (PK/MW)
+)
+Package biblatex Info: Trying to load BibTeX backend compatibility...
+Package biblatex Info: ... file 'blx-bibtex.def' found.
+
+(/home/kassu/.miktex/texmfs/install/tex/latex/biblatex/blx-bibtex.def
+File: blx-bibtex.def 2018/11/02 v3.12 biblatex compatibility (PK/MW)
+
+
+Package biblatex Warning: Using fall-back BibTeX(8) backend:
+(biblatex)                functionality may be reduced/unavailable.
+
+)
+Package biblatex Info: Trying to load generic definitions...
+Package biblatex Info: ... file 'biblatex.def' found.
+ (/home/kassu/.miktex/texmfs/install/tex/latex/biblatex/biblatex.def
+File: biblatex.def 2018/11/02 v3.12 biblatex compatibility (PK/MW)
+\c@textcitecount=\count426
+\c@textcitetotal=\count427
+\c@textcitemaxnames=\count428
+\c@biburlnumpenalty=\count429
+\c@biburlucpenalty=\count430
+\c@biburllcpenalty=\count431
+\c@smartand=\count432
+)
+Package biblatex Info: Trying to load bibliography style 'numeric'...
+Package biblatex Info: ... file 'numeric.bbx' found.
+
+(/home/kassu/.miktex/texmfs/install/tex/latex/biblatex/bbx/numeric.bbx
+File: numeric.bbx 2018/11/02 v3.12 biblatex bibliography style (PK/MW)
+Package biblatex Info: Trying to load bibliography style 'standard'...
+Package biblatex Info: ... file 'standard.bbx' found.
+
+(/home/kassu/.miktex/texmfs/install/tex/latex/biblatex/bbx/standard.bbx
+File: standard.bbx 2018/11/02 v3.12 biblatex bibliography style (PK/MW)
+\c@bbx:relatedcount=\count433
+\c@bbx:relatedtotal=\count434
+))
+Package biblatex Info: Trying to load citation style 'numeric'...
+Package biblatex Info: ... file 'numeric.cbx' found.
+
+(/home/kassu/.miktex/texmfs/install/tex/latex/biblatex/cbx/numeric.cbx
+File: numeric.cbx 2018/11/02 v3.12 biblatex citation style (PK/MW)
+Package biblatex Info: Redefining '\cite'.
+Package biblatex Info: Redefining '\parencite'.
+Package biblatex Info: Redefining '\footcite'.
+Package biblatex Info: Redefining '\footcitetext'.
+Package biblatex Info: Redefining '\smartcite'.
+Package biblatex Info: Redefining '\supercite'.
+Package biblatex Info: Redefining '\textcite'.
+Package biblatex Info: Redefining '\textcites'.
+Package biblatex Info: Redefining '\cites'.
+Package biblatex Info: Redefining '\parencites'.
+Package biblatex Info: Redefining '\smartcites'.
+)
+Package biblatex Info: Trying to load configuration file...
+Package biblatex Info: ... file 'biblatex.cfg' found.
+
+(/home/kassu/.miktex/texmfs/install/tex/latex/biblatex/biblatex.cfg
+File: biblatex.cfg 
+))
 
 Package Fancyhdr Warning: \fancyhead's `E' option without twoside option is use
-less on input line 44.
+less on input line 50.
 
 
 Package Fancyhdr Warning: \fancyhead's `E' option without twoside option is use
-less on input line 46.
+less on input line 52.
 
+Package biblatex Info: Trying to load language 'english'...
+Package biblatex Info: ... file 'english.lbx' found.
+(/home/kassu/.miktex/texmfs/install/tex/latex/biblatex/lbx/english.lbx
+File: english.lbx 2018/11/02 v3.12 biblatex localization (PK/MW)
+)
+
+Package biblatex Warning: 'babel/polyglossia' detected but 'csquotes' missing.
+(biblatex)                Loading 'csquotes' recommended.
+
+\@quotelevel=\count435
+\@quotereset=\count436
 (project.aux)
 \openout1 = `project.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 55.
-LaTeX Font Info:    ... okay on input line 55.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 55.
-LaTeX Font Info:    ... okay on input line 55.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 55.
-LaTeX Font Info:    ... okay on input line 55.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 55.
-LaTeX Font Info:    ... okay on input line 55.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 55.
-LaTeX Font Info:    ... okay on input line 55.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 55.
-LaTeX Font Info:    ... okay on input line 55.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 55.
-LaTeX Font Info:    ... okay on input line 55.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 61.
+LaTeX Font Info:    ... okay on input line 61.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 61.
+LaTeX Font Info:    ... okay on input line 61.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 61.
+LaTeX Font Info:    ... okay on input line 61.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 61.
+LaTeX Font Info:    ... okay on input line 61.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 61.
+LaTeX Font Info:    ... okay on input line 61.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 61.
+LaTeX Font Info:    ... okay on input line 61.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 61.
+LaTeX Font Info:    ... okay on input line 61.
 Now handling font encoding TS1 ...
 ... processing UTF-8 mapping file for font encoding TS1
  (/home/kassu/.miktex/texmfs/install/tex/latex/base/ts1enc.dfu
@@ -838,16 +1077,16 @@ Dictionary: translator-basic-dictionary, Language: English
 File: siunitx-abbreviations.cfg 2017/11/26 v2.7k siunitx: Abbreviated units
 ) (/home/kassu/.miktex/texmfs/install/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count312
+\scratchcounter=\count437
 \scratchdimen=\dimen183
 \scratchbox=\box56
-\nofMPsegments=\count313
-\nofMParguments=\count314
+\nofMPsegments=\count438
+\nofMParguments=\count439
 \everyMPshowfont=\toks27
-\MPscratchCnt=\count315
+\MPscratchCnt=\count440
 \MPscratchDim=\dimen184
-\MPnumerator=\count316
-\makeMPintoPDFobject=\count317
+\MPnumerator=\count441
+\makeMPintoPDFobject=\count442
 \everyMPtoPDFconversion=\toks28
 ) (/home/kassu/.miktex/texmfs/install/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
@@ -863,7 +1102,7 @@ G,.JBIG2,.JB2,.eps]
 (grfext)             \AppendGraphicsExtensions on input line 456.
 )
 \AtBeginShipoutBox=\box57
-Package hyperref Info: Link coloring OFF on input line 55.
+Package hyperref Info: Link coloring OFF on input line 61.
 
 (/home/kassu/.miktex/texmfs/install/tex/latex/hyperref/nameref.sty
 Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
@@ -871,25 +1110,38 @@ Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
 (/home/kassu/.miktex/texmfs/install/tex/generic/oberdiek/gettitlestring.sty
 Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
-\c@section@level=\count318
+\c@section@level=\count443
 )
-LaTeX Info: Redefining \ref on input line 55.
-LaTeX Info: Redefining \pageref on input line 55.
-LaTeX Info: Redefining \nameref on input line 55.
+LaTeX Info: Redefining \ref on input line 61.
+LaTeX Info: Redefining \pageref on input line 61.
+LaTeX Info: Redefining \nameref on input line 61.
 
 (project.out) (project.out)
-\@outlinefile=\write3
-\openout3 = `project.out'.
+\@outlinefile=\write4
+\openout4 = `project.out'.
 
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: wrapfig package is loaded.
 Package caption Info: End \AtBeginDocument code.
-LaTeX Font Info:    Try loading font information for U+msa on input line 55.
+Package biblatex Info: Input encoding 'utf8' detected.
+Package biblatex Info: Automatic encoding selection.
+(biblatex)             Assuming data encoding 'utf8'.
+Package biblatex Info: Input encoding 'utf8' specified.
+Package biblatex Info: Data encoding 'utf8' specified.
+(biblatex)             No need to reencode data.
+\openout3 = `project-blx.bib'.
+
+Package biblatex Info: Trying to load bibliographic data...
+Package biblatex Info: ... file 'project.bbl' found.
+ (project.bbl)
+Package biblatex Info: Reference section=0 on input line 61.
+Package biblatex Info: Reference segment=0 on input line 61.
+LaTeX Font Info:    Try loading font information for U+msa on input line 61.
 
 (/home/kassu/.miktex/texmfs/install/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 55.
+LaTeX Font Info:    Try loading font information for U+msb on input line 61.
 
 (/home/kassu/.miktex/texmfs/install/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
@@ -903,20 +1155,22 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
 [1{/home/kassu/.miktex/texmfs/data/pdftex/config/pdftex.map}
 
 ]
-<../figs/triangle.pdf, id=44, 1065.27159pt x 403.77844pt>
-File: ../figs/triangle.pdf Graphic file (type pdf)
-<use ../figs/triangle.pdf>
-Package pdftex.def Info: ../figs/triangle.pdf  used on input line 141.
-(pdftex.def)             Requested size: 460.72124pt x 174.63177pt.
-
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
  Make it at least 14.49998pt.
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[2]
-Overfull \hbox (7.00761pt too wide) in paragraph at lines 146--147
+[2
+
+]
+<../figs/triangle.pdf, id=54, 1065.27159pt x 403.77844pt>
+File: ../figs/triangle.pdf Graphic file (type pdf)
+<use ../figs/triangle.pdf>
+Package pdftex.def Info: ../figs/triangle.pdf  used on input line 157.
+(pdftex.def)             Requested size: 460.72124pt x 174.63177pt.
+
+Overfull \hbox (7.00761pt too wide) in paragraph at lines 162--163
 \OMS/cmsy/m/n/12 f\OT1/cmr/m/n/12 
 []\OMS/cmsy/m/n/12 g[]$\OT1/cmr/m/n/12 , construction of the required matrices 
 can be achieved by integrating suitable functions
@@ -929,41 +1183,48 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [3 <../figs/triangle.pdf>]
-<../figs/gauss_pot.pdf, id=67, 361.35pt x 361.35pt>
+
+Package Fancyhdr Warning: \headheight is too small (12.0pt): 
+ Make it at least 14.49998pt.
+ We now make it that large for the rest of the document.
+ This may cause the page layout to be inconsistent, however.
+
+[4]
+<../figs/gauss_pot.pdf, id=75, 361.35pt x 361.35pt>
 File: ../figs/gauss_pot.pdf Graphic file (type pdf)
 <use ../figs/gauss_pot.pdf>
-Package pdftex.def Info: ../figs/gauss_pot.pdf  used on input line 168.
+Package pdftex.def Info: ../figs/gauss_pot.pdf  used on input line 186.
 (pdftex.def)             Requested size: 207.32315pt x 207.32251pt.
 
-Underfull \hbox (badness 2772) in paragraph at lines 169--169
+Underfull \hbox (badness 2772) in paragraph at lines 187--187
 []\OT1/cmr/m/n/12 Figure 2: |The potential landscape used
  []
 
 
-Underfull \hbox (badness 1571) in paragraph at lines 169--169
+Underfull \hbox (badness 1571) in paragraph at lines 187--187
 \OT1/cmr/m/n/12 in initial tests of the FEM solver. The
  []
 
 
-Underfull \hbox (badness 1168) in paragraph at lines 173--174
+Underfull \hbox (badness 1168) in paragraph at lines 191--192
 \OT1/cmr/m/n/12 [0\OML/cmm/m/it/12 ;\OT1/cmr/m/n/12 1] \OMS/cmsy/m/n/12  \OT1/
 cmr/m/n/12 [0\OML/cmm/m/it/12 ;\OT1/cmr/m/n/12 1]$ unit square. The potential
  []
 
 
-Underfull \hbox (badness 3148) in paragraph at lines 173--174
+Underfull \hbox (badness 3148) in paragraph at lines 191--192
 \OT1/cmr/m/n/12 triangulation. The solver was run for
  []
 
 
-Underfull \hbox (badness 3471) in paragraph at lines 173--174
+Underfull \hbox (badness 3471) in paragraph at lines 191--192
 \OT1/cmr/m/n/12 resulting eigenstates and -energies are
  []
 
-<../figs/eigenfuncs_gauss.pdf, id=71, 578.16pt x 867.24pt>
+<../figs/eigenfuncs_gauss.pdf, id=79, 578.16pt x 867.24pt>
 File: ../figs/eigenfuncs_gauss.pdf Graphic file (type pdf)
 <use ../figs/eigenfuncs_gauss.pdf>
-Package pdftex.def Info: ../figs/eigenfuncs_gauss.pdf  used on input line 181.
+Package pdftex.def Info: ../figs/eigenfuncs_gauss.pdf  used on input line 201.
 (pdftex.def)             Requested size: 460.72124pt x 691.0802pt.
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -971,11 +1232,13 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[4 <../figs/gauss_pot.pdf>]
-<../figs/energy_convergence.pdf, id=92, 433.62pt x 433.62pt>
+[5
+
+ <../figs/gauss_pot.pdf>]
+<../figs/energy_convergence.pdf, id=100, 433.62pt x 433.62pt>
 File: ../figs/energy_convergence.pdf Graphic file (type pdf)
 <use ../figs/energy_convergence.pdf>
-Package pdftex.def Info: ../figs/energy_convergence.pdf  used on input line 190
+Package pdftex.def Info: ../figs/energy_convergence.pdf  used on input line 210
 .
 (pdftex.def)             Requested size: 322.50345pt x 322.52129pt.
 
@@ -985,19 +1248,19 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[5 <../figs/eigenfuncs_gauss.pdf>]
-<../figs/circle_pot.pdf, id=143, 361.35pt x 361.35pt>
+[6 <../figs/eigenfuncs_gauss.pdf>]
+<../figs/circle_pot.pdf, id=151, 361.35pt x 361.35pt>
 File: ../figs/circle_pot.pdf Graphic file (type pdf)
 <use ../figs/circle_pot.pdf>
-Package pdftex.def Info: ../figs/circle_pot.pdf  used on input line 205.
+Package pdftex.def Info: ../figs/circle_pot.pdf  used on input line 225.
 (pdftex.def)             Requested size: 207.32315pt x 207.32251pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 206--206
+Underfull \hbox (badness 10000) in paragraph at lines 226--226
 []\OT1/cmr/m/n/12 Figure 5: |The ring-shaped potential
  []
 
 
-Underfull \hbox (badness 2065) in paragraph at lines 206--206
+Underfull \hbox (badness 2065) in paragraph at lines 226--226
 \OT1/cmr/m/n/12 landscape. The blue (red) color denotes
  []
 
@@ -1007,35 +1270,36 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[6 <../figs/energy_convergence.pdf>]
-Underfull \hbox (badness 5091) in paragraph at lines 211--212
+[7 <../figs/energy_convergence.pdf>]
+Underfull \hbox (badness 5091) in paragraph at lines 231--232
 \OT1/cmr/m/n/12 distributed antinode. Interestingly, the
  []
 
 
-Underfull \hbox (badness 1533) in paragraph at lines 211--212
+Underfull \hbox (badness 1533) in paragraph at lines 231--232
 \OT1/cmr/m/n/12 more accurate mesh seems to be able
  []
 
 
-Underfull \hbox (badness 2050) in paragraph at lines 211--212
+Underfull \hbox (badness 2050) in paragraph at lines 231--232
 \OT1/cmr/m/n/12 to differentiate between the two near-
  []
 
 
-Underfull \hbox (badness 2617) in paragraph at lines 211--212
-\OT1/cmr/m/n/12 difference is the direction of the line
- []
-
-
-Underfull \hbox (badness 1377) in paragraph at lines 211--212
+Underfull \hbox (badness 1377) in paragraph at lines 231--232
 \OT1/cmr/m/n/12 and rectangular, the diagonally-oriented
  []
 
-<../figs/eigenfuncs_circle.pdf, id=173, 578.16pt x 867.24pt>
+
+Overfull \hbox (4.3781pt too wide) in paragraph at lines 235--236
+\OT1/cmr/m/n/12 capabilities present in, for instance, the library functions us
+ed to integrate over the triangular
+ []
+
+<../figs/eigenfuncs_circle.pdf, id=183, 578.16pt x 867.24pt>
 File: ../figs/eigenfuncs_circle.pdf Graphic file (type pdf)
 <use ../figs/eigenfuncs_circle.pdf>
-Package pdftex.def Info: ../figs/eigenfuncs_circle.pdf  used on input line 217.
+Package pdftex.def Info: ../figs/eigenfuncs_circle.pdf  used on input line 243.
 
 (pdftex.def)             Requested size: 460.72124pt x 691.0802pt.
 
@@ -1044,8 +1308,15 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[7 <../figs/circle_pot.pdf>]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 226.
+[8 <../figs/circle_pot.pdf>]
+
+Package Fancyhdr Warning: \headheight is too small (12.0pt): 
+ Make it at least 14.49998pt.
+ We now make it that large for the rest of the document.
+ This may cause the page layout to be inconsistent, however.
+
+[9 <../figs/eigenfuncs_circle.pdf>]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 255.
 
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -1053,23 +1324,28 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[8 <../figs/eigenfuncs_circle.pdf>]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 226.
+[10
+
+]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 255.
  (project.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 226.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 226.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 255.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 255.
 Package rerunfilecheck Info: File `project.out' has not changed.
-(rerunfilecheck)             Checksum: 951F57409808AA89FAD52DFB03B430C5;317.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 226.
+(rerunfilecheck)             Checksum: 8B22F619829A31A77CC01219554C5CA4;383.
+Package logreq Info: Writing requests to 'project.run.xml'.
+\openout1 = `project.run.xml'.
+
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 255.
  ) 
 Here is how much of TeX's memory you used:
- 19969 strings out of 494894
- 373977 string characters out of 3178732
- 442461 words of memory out of 3000000
- 23389 multiletter control sequences out of 15000+200000
- 539606 words of font info for 52 fonts, out of 3000000 for 9000
+ 26639 strings out of 494894
+ 499681 string characters out of 3178732
+ 756292 words of memory out of 3000000
+ 29998 multiletter control sequences out of 15000+200000
+ 539953 words of font info for 53 fonts, out of 3000000 for 9000
  1 hyphenation exception out of 8191
- 40i,11n,63p,821b,753s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 40i,11n,63p,1162b,1667s stack positions out of 5000i,500n,10000p,200000b,50000s
 </home/kassu/.miktex/texmfs/install/fonts/type1/public/amsfonts/cm/cmbx12.pfb
 ></home/kassu/.miktex/texmfs/install/fonts/type1/public/amsfonts/cm/cmex10.pfb>
 </home/kassu/.miktex/texmfs/install/fonts/type1/public/amsfonts/cm/cmmi12.pfb><
@@ -1085,11 +1361,12 @@ x/texmfs/install/fonts/type1/public/amsfonts/cm/cmr9.pfb></home/kassu/.miktex/t
 exmfs/install/fonts/type1/public/amsfonts/cm/cmsy10.pfb></home/kassu/.miktex/te
 xmfs/install/fonts/type1/public/amsfonts/cm/cmsy8.pfb></home/kassu/.miktex/texm
 fs/install/fonts/type1/public/amsfonts/cm/cmsy9.pfb></home/kassu/.miktex/texmfs
-/install/fonts/type1/public/amsfonts/cm/cmtt12.pfb></home/kassu/.miktex/texmfs/
-install/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on project.pdf (8 pages, 2513621 bytes).
+/install/fonts/type1/public/amsfonts/cm/cmti12.pfb></home/kassu/.miktex/texmfs/
+install/fonts/type1/public/amsfonts/cm/cmtt12.pfb></home/kassu/.miktex/texmfs/i
+nstall/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on project.pdf (10 pages, 2534444 bytes).
 PDF statistics:
- 261 PDF objects out of 1000 (max. 8388607)
- 29 named destinations out of 1000 (max. 500000)
- 71 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 283 PDF objects out of 1000 (max. 8388607)
+ 34 named destinations out of 1000 (max. 500000)
+ 79 words of extra memory for PDF output out of 10000 (max. 10000000)
 

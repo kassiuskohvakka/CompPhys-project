@@ -61,15 +61,10 @@ def pot(x):
     barrier_width = 0.03
     res = 9999*np.ones(x_temp.shape[0])
     for i, y in enumerate(x_temp):
-        if (abs(y[0]-0)>barrier_width and abs(y[1]-0)>barrier_width and abs(y[0]-1)>barrier_width and abs(y[1]-1)>barrier_width):
+        if (abs(y[0]-0)>barrier_width and abs(y[1]-0)>barrier_width and abs(y[0]-10)>barrier_width and abs(y[1]-10)>barrier_width):
             #Compute the distance from (0.5, 0.5)
-            dist_sq = (y[0]-0.5)**2 + (y[1]-0.5)**2
-            if (dist_sq>0.13):
-                res[i] = 9999#0.0
-            elif (dist_sq <0.04):
-                res[i] = 9999#min(9999, 1/dist_sq)#1/(dist_sq)+0.001
-            else:
-                res[i] = 9999*(dist_sq-0.04)*(dist_sq-0.13)
+            dist = np.sqrt((y[0]-5)**2 + (y[1]-5)**2)
+            res[i] = max(-1000/dist, -1000)
             
 
     return res
@@ -111,23 +106,23 @@ print(f'Starting triangulation...', end="", flush=True)
 
 geom = pg.opencascade.Geometry(
   characteristic_length_min=0.001,
-  characteristic_length_max=0.3,
+  characteristic_length_max=1,
   )
 
 # Define a simple 2D geometry, a unit square [0,1]x[0,1]
 
 # Corner points
 p0 = geom.add_point([0.0, 0.0, 0.0], lcar=mesh_parameter)
-p1 = geom.add_point([1.0, 0.0, 0.0], lcar=mesh_parameter)
-p2 = geom.add_point([1.0, 1.0, 0.0], lcar=mesh_parameter)
-p3 = geom.add_point([0.0, 1.0, 0.0], lcar=mesh_parameter)
+p1 = geom.add_point([10.0, 0.0, 0.0], lcar=mesh_parameter)
+p2 = geom.add_point([10.0, 10.0, 0.0], lcar=mesh_parameter)
+p3 = geom.add_point([0.0, 10.0, 0.0], lcar=mesh_parameter)
 
 # p4 = geom.add_point([0.1, 0.1, 0.0], lcar=mesh_parameter)
 #p5 = geom.add_point([0.9, 0.9, 0.0], lcar=mesh_parameter)
 
-circ1 = geom.add_disk([0.5, 0.5, 0.0], radius0=0.2, char_length=0.01)
-circ2 = geom.add_disk([0.5, 0.5, 0.0], radius0=0.36, char_length=0.01)
-circ3 = geom.add_disk([0.5, 0.5, 0.0], radius0=0.05, char_length=mesh_parameter)
+circ1 = geom.add_disk([5, 5, 0.0], radius0=0.5, char_length=0.02)
+# circ2 = geom.add_disk([0.5, 0.5, 0.0], radius0=0.36, char_length=0.01)
+# circ3 = geom.add_disk([0.5, 0.5, 0.0], radius0=0.05, char_length=mesh_parameter)
 
 # geom.add_physical(p4)
 # p4 = geom.add_point([0.5, 0.8, 0.0], lcar=mesh_parameter)
@@ -152,7 +147,7 @@ lineloop = geom.add_line_loop([l0, l1, l2, l3])
 
 plane_surf = geom.add_plane_surface(lineloop, holes=None)
 
-plane = geom.boolean_union([plane_surf, circ1, circ2, circ3])
+plane = geom.boolean_union([plane_surf, circ1])#, circ2, circ3])
 
 axis = [0, 0, 1]
 
@@ -376,7 +371,7 @@ if (SAVE_TO_FILE):
     print(f'Saving data...', end="", flush=True)
 
     # Save the potential landscape
-    X, Y = np.meshgrid(np.linspace(0,1,100), np.linspace(0,1,100))
+    X, Y = np.meshgrid(np.linspace(0,10,100), np.linspace(0,10,100))
     # print(X.shape)
     Z = pot(np.array([X,Y]))
 

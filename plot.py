@@ -51,6 +51,7 @@ mesh_points = data[2]
 # Potential landscape
 pot = data[3]
 X, Y = np.meshgrid(np.linspace(0,1,100), np.linspace(0,1,100))
+# X, Y = np.meshgrid(np.linspace(0,10,100), np.linspace(0,10,100))
 
 # Dimension
 N = data[4]

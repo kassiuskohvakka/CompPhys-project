@@ -16,28 +16,41 @@
 \gdef\HyperFirstAtBeginDocument#1{#1}
 \providecommand\HyField@AuxAddToFields[1]{}
 \providecommand\HyField@AuxAddToCoFields[2]{}
+\bibstyle{biblatex}
+\bibdata{project-blx,project}
+\citation{biblatex-control}
+\abx@aux@refcontext{nty/global//global/global}
+\@writefile{toc}{\boolfalse {citerequest}\boolfalse {citetracker}\boolfalse {pagetracker}\boolfalse {backtracker}\relax }
+\@writefile{lof}{\boolfalse {citerequest}\boolfalse {citetracker}\boolfalse {pagetracker}\boolfalse {backtracker}\relax }
+\@writefile{lot}{\boolfalse {citerequest}\boolfalse {citetracker}\boolfalse {pagetracker}\boolfalse {backtracker}\relax }
 \babel@aux{english}{}
 \@writefile{toc}{\contentsline {section}{\numberline {1}Background}{1}{section.1}}
-\@writefile{toc}{\contentsline {section}{\numberline {2}Theory and methods}{1}{section.2}}
-\newlabel{eq: 2DSchrodinger}{{1}{1}{Theory and methods}{equation.2.1}{}}
-\newlabel{eq: basisExpansion}{{2}{1}{Theory and methods}{equation.2.2}{}}
-\newlabel{eq: schrodingerInFEMBasis}{{3}{1}{Theory and methods}{equation.2.3}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {2}Theory and methods}{2}{section.2}}
+\newlabel{eq: 2DSchrodinger}{{1}{2}{Theory and methods}{equation.2.1}{}}
+\newlabel{eq: basisExpansion}{{2}{2}{Theory and methods}{equation.2.2}{}}
+\newlabel{eq: schrodingerInFEMBasis}{{3}{2}{Theory and methods}{equation.2.3}{}}
 \newlabel{eq: almostReadyFEMeq}{{5}{2}{Theory and methods}{equation.2.5}{}}
-\newlabel{eq: readyFEMeq}{{7}{2}{Theory and methods}{equation.2.7}{}}
-\newlabel{eq: matrixFormFEMeq}{{8}{2}{Theory and methods}{equation.2.8}{}}
+\newlabel{eq: readyFEMeq}{{7}{3}{Theory and methods}{equation.2.7}{}}
+\newlabel{eq: matrixFormFEMeq}{{8}{3}{Theory and methods}{equation.2.8}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces a) A triangular element $\Omega _k$ of the domain together with the three vertices or nodes, each being the center of a FEM basis function $\phi $. Note that at each triangle, only three basis functions are nonzero, and each of them is affine over $\Omega _k$. b) Illustration of the triangulation. The basis functions centered at $(x_n, y_n)$ and $(x_m, y_m)$ overlap only in two triangular elements $\Omega _k$ and $\Omega _l$. Note that in both domains, the functions are affine but not the same as FEM basis functions are piecewise linear.\relax }}{3}{figure.caption.1}}
 \providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
 \newlabel{fig: triangles}{{1}{3}{a) A triangular element $\Omega _k$ of the domain together with the three vertices or nodes, each being the center of a FEM basis function $\phi $. Note that at each triangle, only three basis functions are nonzero, and each of them is affine over $\Omega _k$. b) Illustration of the triangulation. The basis functions centered at $(x_n, y_n)$ and $(x_m, y_m)$ overlap only in two triangular elements $\Omega _k$ and $\Omega _l$. Note that in both domains, the functions are affine but not the same as FEM basis functions are piecewise linear.\relax }{figure.caption.1}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {3}Results}{4}{section.3}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Testing solver and convergence}{4}{subsection.3.1}}
-\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces The potential landscape used in initial tests of the FEM solver. The blue region in the middle is the Gaussian potential minimum and the red region is a high potential barrier approximating an infinite potential well. The blue dots are the triangulation nodes for $N=3436$. \relax }}{4}{figure.caption.2}}
-\newlabel{fig: gaussPot}{{2}{4}{The potential landscape used in initial tests of the FEM solver. The blue region in the middle is the Gaussian potential minimum and the red region is a high potential barrier approximating an infinite potential well. The blue dots are the triangulation nodes for $N=3436$. \relax }{figure.caption.2}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces The six lowest-energy eigenstates in the Gaussian potential well with $N=3436$. Note that it seems based on our FEM solution that only three of the states are bound to the potential minimum. Notice also the near-degenerate state pairs $(\psi _1, \psi _2)$ and $(\psi _4, \psi _5)$.\relax }}{5}{figure.caption.3}}
-\newlabel{fig: gaussEigFuncs}{{3}{5}{The six lowest-energy eigenstates in the Gaussian potential well with $N=3436$. Note that it seems based on our FEM solution that only three of the states are bound to the potential minimum. Notice also the near-degenerate state pairs $(\psi _1, \psi _2)$ and $(\psi _4, \psi _5)$.\relax }{figure.caption.3}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces The convergence of the energy eigenvalues as the FEM basis dimension $N$ increases.\relax }}{6}{figure.caption.4}}
-\newlabel{fig: gaussEigVals}{{4}{6}{The convergence of the energy eigenvalues as the FEM basis dimension $N$ increases.\relax }{figure.caption.4}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}More interesting potential -- less uniform mesh}{6}{subsection.3.2}}
-\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces The ring-shaped potential landscape. The blue (red) color denotes low (high) potential. The blue dots are the triangulation nodes for $N=4763$. Note that the distrubution of the nodes is highly non-uniform. \relax }}{7}{figure.caption.5}}
-\newlabel{fig: circlePot}{{5}{7}{The ring-shaped potential landscape. The blue (red) color denotes low (high) potential. The blue dots are the triangulation nodes for $N=4763$. Note that the distrubution of the nodes is highly non-uniform. \relax }{figure.caption.5}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces The six lowest-energy eigenstates in the ring-shaped potential well with $N=4763$.\relax }}{8}{figure.caption.6}}
-\newlabel{fig: circleEigFuncs}{{6}{8}{The six lowest-energy eigenstates in the ring-shaped potential well with $N=4763$.\relax }{figure.caption.6}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {3}Results}{5}{section.3}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Testing solver and convergence}{5}{subsection.3.1}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces The potential landscape used in initial tests of the FEM solver. The blue region in the middle is the Gaussian potential minimum and the red region is a high potential barrier approximating an infinite potential well. The blue dots are the triangulation nodes for $N=3436$. \relax }}{5}{figure.caption.2}}
+\newlabel{fig: gaussPot}{{2}{5}{The potential landscape used in initial tests of the FEM solver. The blue region in the middle is the Gaussian potential minimum and the red region is a high potential barrier approximating an infinite potential well. The blue dots are the triangulation nodes for $N=3436$. \relax }{figure.caption.2}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces The six lowest-energy eigenstates in the Gaussian potential well with $N=3436$. Note that it seems based on our FEM solution that only three of the states are bound to the potential minimum. Notice also the near-degenerate state pairs $(\psi _1, \psi _2)$ and $(\psi _4, \psi _5)$.\relax }}{6}{figure.caption.3}}
+\newlabel{fig: gaussEigFuncs}{{3}{6}{The six lowest-energy eigenstates in the Gaussian potential well with $N=3436$. Note that it seems based on our FEM solution that only three of the states are bound to the potential minimum. Notice also the near-degenerate state pairs $(\psi _1, \psi _2)$ and $(\psi _4, \psi _5)$.\relax }{figure.caption.3}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces The convergence of the energy eigenvalues as the FEM basis dimension $N$ increases.\relax }}{7}{figure.caption.4}}
+\newlabel{fig: gaussEigVals}{{4}{7}{The convergence of the energy eigenvalues as the FEM basis dimension $N$ increases.\relax }{figure.caption.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}More interesting potential -- less uniform mesh}{7}{subsection.3.2}}
+\citation{GILdoc}
+\abx@aux@cite{GILdoc}
+\abx@aux@segm{0}{0}{GILdoc}
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces The ring-shaped potential landscape. The blue (red) color denotes low (high) potential. The blue dots are the triangulation nodes for $N=4763$. Note that the distrubution of the nodes is highly non-uniform. \relax }}{8}{figure.caption.5}}
+\newlabel{fig: circlePot}{{5}{8}{The ring-shaped potential landscape. The blue (red) color denotes low (high) potential. The blue dots are the triangulation nodes for $N=4763$. Note that the distrubution of the nodes is highly non-uniform. \relax }{figure.caption.5}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {4}Conclusions and further studies}{8}{section.4}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces The six lowest-energy eigenstates in the ring-shaped potential well with $N=4763$.\relax }}{9}{figure.caption.6}}
+\newlabel{fig: circleEigFuncs}{{6}{9}{The six lowest-energy eigenstates in the ring-shaped potential well with $N=4763$.\relax }{figure.caption.6}{}}
+\abx@aux@refcontextdefaultsdone
+\abx@aux@defaultrefcontext{0}{GILdoc}{nty/global//global/global}
