@@ -1,7 +1,6 @@
-######################################################
-### Testing a LJ-type potential, requires more work :)
-######################################################
-
+#######################################
+### Gaussian potential well for testing
+#######################################
 
 import pygmsh as pg 
 import numpy as np
@@ -66,11 +65,8 @@ def pot(x):
     barrier_width = 0.03
     res = 9999*np.ones(x_temp.shape[0])
     for i, y in enumerate(x_temp):
-        if (abs(y[0]-0)>barrier_width and abs(y[1]-0)>barrier_width and abs(y[0]-10)>barrier_width and abs(y[1]-10)>barrier_width):
-            #Compute the distance from (0.5, 0.5)
-            dist = np.sqrt((y[0]-5)**2 + (y[1]-5)**2)
-            res[i] = max(-1000/dist, -1000)
-            
+        if (abs(y[0]-0)>barrier_width and abs(y[1]-0)>barrier_width and abs(y[0]-1)>barrier_width and abs(y[1]-1)>barrier_width):
+            res[i] = -300*np.exp(-50*((y[0]-0.5)**2 + (y[1]-0.5)**2))
 
     return res
 
@@ -107,30 +103,15 @@ tic = time.time()
 
 print(f'Starting triangulation...', end="", flush=True)
 
-# geom = pg.built_in.Geometry()
-
-geom = pg.opencascade.Geometry(
-  characteristic_length_min=0.001,
-  characteristic_length_max=1,
-  )
+geom = pg.built_in.Geometry()
 
 # Define a simple 2D geometry, a unit square [0,1]x[0,1]
 
 # Corner points
 p0 = geom.add_point([0.0, 0.0, 0.0], lcar=mesh_parameter)
-p1 = geom.add_point([10.0, 0.0, 0.0], lcar=mesh_parameter)
-p2 = geom.add_point([10.0, 10.0, 0.0], lcar=mesh_parameter)
-p3 = geom.add_point([0.0, 10.0, 0.0], lcar=mesh_parameter)
-
-# p4 = geom.add_point([0.1, 0.1, 0.0], lcar=mesh_parameter)
-#p5 = geom.add_point([0.9, 0.9, 0.0], lcar=mesh_parameter)
-
-circ1 = geom.add_disk([5, 5, 0.0], radius0=0.5, char_length=0.02)
-# circ2 = geom.add_disk([0.5, 0.5, 0.0], radius0=0.36, char_length=0.01)
-# circ3 = geom.add_disk([0.5, 0.5, 0.0], radius0=0.05, char_length=mesh_parameter)
-
-# geom.add_physical(p4)
-# p4 = geom.add_point([0.5, 0.8, 0.0], lcar=mesh_parameter)
+p1 = geom.add_point([1.0, 0.0, 0.0], lcar=mesh_parameter)
+p2 = geom.add_point([1.0, 1.0, 0.0], lcar=mesh_parameter)
+p3 = geom.add_point([0.0, 1.0, 0.0], lcar=mesh_parameter)
 
 # p1 = pg.built_in.point.Point([1.0, 0.0, 0.0])
 # p2 = pg.built_in.point.Point([1.0, 1.0, 0.0])
@@ -151,8 +132,6 @@ l3 = geom.add_line(p3, p0)
 lineloop = geom.add_line_loop([l0, l1, l2, l3])
 
 plane_surf = geom.add_plane_surface(lineloop, holes=None)
-
-plane = geom.boolean_union([plane_surf, circ1])#, circ2, circ3])
 
 axis = [0, 0, 1]
 
@@ -376,7 +355,7 @@ if (SAVE_TO_FILE):
     print(f'Saving data...', end="", flush=True)
 
     # Save the potential landscape
-    X, Y = np.meshgrid(np.linspace(0,10,100), np.linspace(0,10,100))
+    X, Y = np.meshgrid(np.linspace(0,1,100), np.linspace(0,1,100))
     # print(X.shape)
     Z = pot(np.array([X,Y]))
 
@@ -389,8 +368,7 @@ if (SAVE_TO_FILE):
 
     # filename = "data/results_m{}_{}".format(mesh_parameter, readts)
 
-    #filename = f"data/energy_convergence_m_{str(mesh_parameter).replace('.', 'p')}"
-    filename = "data/circ_pot_test"
+    filename = f"data/energy_convergence_m_{str(mesh_parameter).replace('.', 'p')}"
 
     data = np.array([E, psi, mesh.points, Z, N])
 

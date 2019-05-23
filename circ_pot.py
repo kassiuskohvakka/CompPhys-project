@@ -1,3 +1,11 @@
+
+#############################################
+### Ring-shaped potential well - refined mesh
+#############################################
+
+
+
+
 import pygmsh as pg 
 import numpy as np
 from matplotlib import pyplot as plt
