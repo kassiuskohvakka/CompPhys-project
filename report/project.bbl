@@ -16,11 +16,100 @@
   {}
 \endgroup
 
-\datalist[entry]{nty/global//global/global}
+\datalist[entry]{none/global//global/global}
+  \entry{rao}{book}{}
+    \name{author}{1}{}{%
+      {{hash=RSS}{%
+         family={Rao},
+         familyi={R\bibinitperiod},
+         given={Singiresu\bibnamedelima S.},
+         giveni={S\bibinitperiod\bibinitdelim S\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Elsevier}%
+    }
+    \strng{namehash}{RSS1}
+    \strng{fullhash}{RSS1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{isbn}{0750678283}
+    \field{title}{The Finite Element Method in Engineering}
+    \field{year}{2004}
+  \endentry
+
+  \entry{hutton}{book}{}
+    \name{author}{1}{}{%
+      {{hash=HDV}{%
+         family={Hutton},
+         familyi={H\bibinitperiod},
+         given={David\bibnamedelima V.},
+         giveni={D\bibinitperiod\bibinitdelim V\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {McGraw-Hill}%
+    }
+    \strng{namehash}{HDV1}
+    \strng{fullhash}{HDV1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{isbn}{0072233411}
+    \field{title}{Fundamentals of Finite Element Analysis}
+    \field{year}{2004}
+  \endentry
+
+  \entry{griffiths}{book}{}
+    \name{author}{1}{}{%
+      {{hash=GDJ}{%
+         family={Griffiths},
+         familyi={G\bibinitperiod},
+         given={David\bibnamedelima J.},
+         giveni={D\bibinitperiod\bibinitdelim J\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Prentice Hall}%
+    }
+    \strng{namehash}{GDJ1}
+    \strng{fullhash}{GDJ1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{isbn}{0131244051}
+    \field{title}{Introduction to Quantum Mechanics}
+    \field{year}{1995}
+  \endentry
+
+  \entry{griffiths2}{book}{}
+    \name{author}{1}{}{%
+      {{hash=GDJ}{%
+         family={Griffiths},
+         familyi={G\bibinitperiod},
+         given={David\bibnamedelima J.},
+         giveni={D\bibinitperiod\bibinitdelim J\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Cambridge University Press}%
+    }
+    \strng{namehash}{GDJ1}
+    \strng{fullhash}{GDJ1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{isbn}{9781108420419}
+    \field{title}{Introduction to Electrodynamics}
+    \field{year}{2017}
+  \endentry
+
+  \entry{PYGMSHdoc}{misc}{}
+    \field{labeltitlesource}{title}
+    \field{howpublished}{\url{https://pypi.org/project/pygmsh/}}
+    \field{note}{Accessed: 2019-05-23}
+    \field{title}{Pygmsh 5.0.1 documentation}
+  \endentry
+
   \entry{GILdoc}{misc}{}
     \field{labeltitlesource}{title}
-    \field{sortinit}{P}
-    \field{sortinithash}{P}
   \field{howpublished}{\url{https://wiki.python.org/moin/GlobalInterpreterLock}}
     \field{note}{Accessed: 2019-05-19}
     \field{title}{Python documentation, GlobalInterpreterLock}

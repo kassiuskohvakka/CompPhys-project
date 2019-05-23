@@ -29,6 +29,7 @@
 \usepackage[
     backend=bibtex,
     style=numeric,
+    sorting=none
   ]{biblatex}
 \addbibresource{project.bib}
 
@@ -79,19 +80,19 @@
 \vspace{-0.7cm}
 \section{Background}
 
-The finite element method (FEM) is a numerical method for solving boundary value problems for partial differential equations used throughout engineering and the sciences. Numerical methods are required in cases where analytical solutions to the problems are intractable to obtain or require abstractions and simplifications which make the solution not applicable in real life. Particularly in engineering, such methods are vital in designing, for instance, load-bearing structures, complicated machine parts, and vehicle chassis which can safely withstand the forces at play and -- if need be -- give in without threatening the lives of the passangers. Problems relating to heat transfer, wave propagation, fluid flow, electromagnetic fields, and other physical phenomena governed by laws expressed in terms of partial differential equations are omnipresent in engineering as well as physics.
+The finite element method (FEM) is a numerical method for solving boundary value problems for partial differential equations used throughout engineering and the sciences. Numerical methods are required in cases where analytical solutions to the problems are intractable to obtain or require abstractions and simplifications which make the solution not applicable in real life. Particularly in engineering, such methods are vital in designing, for instance, load-bearing structures, complicated machine parts, and vehicle chassis which can safely withstand the forces at play and -- if need be -- give in without threatening the lives of the passangers. Problems relating to heat transfer, wave propagation, fluid flow, electromagnetic fields, and other physical phenomena governed by laws expressed in terms of partial differential equations are omnipresent in engineering as well as physics. \cite{rao}
 
 One such problem is solving the time-independent Schrödinger equation. The stationary states of a quantum mechanical system, such as a particle in an external potential, are found by computing the eigenstates of the Hamiltonian operator $\hat{H}$ defined by partial derivatives. While analytic solutions for a few simple potentials are known (e.g. particle-in-a-box and the harmonic oscillator), no analytic solution exists for an arbitrary potential. Thus, numerical computations are required to find approximate solutions in challenging geometries or non-trivial potentials.
 
-The standard approach to the problem is the discretization of the derivatives present in the Hamiltonian, leading to a matrix representation of the Hamiltonian and an eigenproblem for an ordinary matrix. The two common discretization methods, namely, finite difference and FEM, both can be used to this end. The major advantage of the latter over the former is the ability to freely choose the size of the finite elements (triangles in 2D) at each point in the problem domain. This allows significant reductions in the computational cost and memory requirements by using a less dense mesh in regions of lesser importance. Therefore we may take full advantage of the accuracy of the dense grid where it matters while sacrificing less resources for unimportant aspects of the problem.
+The standard approach to the problem is the discretization of the derivatives present in the Hamiltonian, leading to a matrix representation of the Hamiltonian and an eigenproblem for an ordinary matrix. The two common discretization methods, namely, finite difference and FEM, both can be used to this end. The major advantage of the latter over the former is the ability to freely choose the size of the finite elements (triangles in 2D) at each point in the problem domain. This allows significant reductions in the computational cost and memory requirements by using a less dense mesh in regions of lesser importance. Therefore we may take full advantage of the accuracy of the dense grid where it matters while sacrificing less resources for unimportant aspects of the problem \cite{hutton}.
 
-In this project, I implemented a FEM solver for the time-independent Schrödinger equation in two dimensions. The correctness of the solution is assessed by taking a look at the convergence of the energy eigenvalues. Subsequently, the solver is tested for a non-trivial potential. The code was written in python and takes advantage of some of the numerical computation libraries, such as numpy and scipy.
+In this project, I implemented a FEM solver for the time-independent Schrödinger equation in two dimensions. The correctness of the solution is assessed by taking a look at the convergence of the energy eigenvalues. Subsequently, the solver is tested for a non-trivial potential. The code was written in python and takes advantage of some of the numerical computation libraries, such as numpy and scipy. The code is visible in a public GitHub repository in \url{https://github.com/kassiuskohvakka/CP-project}.
 
 
 \cleardoublepage
 \section{Theory and methods}
 
-The two-dimensional time-independent Schrödinger equation is given by
+The two-dimensional time-independent Schrödinger equation is given by \cite{griffiths}
 
 \begin{equation}
 \label{eq: 2DSchrodinger}
@@ -126,7 +127,7 @@ We can now integrate both sides over the domain $\Omega$ of our problem (and lig
 \sum_{i=1}^{N} \left[ -\frac{1}{2} \left( \int_{\Omega} \phi_j \nabla^2 \phi_i \dd A \right) + \left( \int_{\Omega} \phi_j V \phi_i \dd A \right) \right]  \alpha_i   = \sum_{i=1}^{N} E \left( \int_{\Omega} \phi_j \phi_i \dd A \right) \alpha_i .
 \end{equation}
 
-The integrals inside the ordinary parentheses are now matrices. The first of the three still needs to be rewritten by Green's first identity:
+The integrals inside the ordinary parentheses are now matrices. The first of the three still needs to be rewritten by Green's first identity \cite{griffiths2}:
 
 \begin{equation}
 \int_{\Omega} \phi_j \nabla^2 \phi_i \dd A = \underbrace{\oint_{\partial\Omega} \phi_j (\nabla \phi_i \cdot \hat{n} )\dd l}_{=0} - \int_{\Omega} \nabla \phi_j \cdot \nabla \phi_i \dd A,
@@ -159,7 +160,7 @@ which is a generalized eigenvalue problem involving our known matrices. Solving 
 \label{fig: triangles}
 \end{figure}
 
-The triangulation of the domain $\Omega = [0,1]\times[0,1]$ was done by using \texttt{pygmsh}, a python wrapper for the mesh generator tool Gmsh. Having constructed the triangular subdomains $\lbrace \Omega_k \rbrace_k$, construction of the required matrices can be achieved by integrating suitable functions over the subdomains. Integration over an arbitrary triangle can be done by a number of quadratures and was done in practice by utilizing \texttt{quadpy}, a python library for numerical integration. The generalized eigenvalue problem was solved using \texttt{scipy.linalg.eigh}, a library solver for eigenvalue problems involving Hermitian matrices.
+The triangulation of the domain $\Omega = [0,1]\times[0,1]$ was done by using \texttt{pygmsh}, a python wrapper for the mesh generator tool Gmsh \cite{PYGMSHdoc}. Having constructed the triangular subdomains $\lbrace \Omega_k \rbrace_k$, construction of the required matrices can be achieved by integrating suitable functions over the subdomains. Integration over an arbitrary triangle can be done by a number of quadratures and was done in practice by utilizing \texttt{quadpy}, a python library for numerical integration. The generalized eigenvalue problem was solved using \texttt{scipy.linalg.eigh}, a library solver for eigenvalue problems involving Hermitian matrices.
 
 The explicit formulas for the piecewise affine hat basis functions for each of the subdomains must be constructed to compute $T$, $V$ and $S$. Over the arbitrary subdomain $\Omega_k$ the relevant basis functions located at the vertices are given by
 
@@ -228,7 +229,7 @@ I quickly realized that as it stands, the \texttt{pygmsh} tool kit used in the t
 \end{center}
 \end{wrapfigure}
 
-The modified mesh does little to make solving the generalized eigenproblem any harder. Fig.~\ref{fig: circleEigFuncs} shows the six lowest-energy eigenstates inside the ring-shaped potential well. The eigenstates seem to obey intuition as increase in energy generally translates directly in an addition of a symmetrically-distributed antinode. Interestingly, the more accurate mesh seems to be able to differentiate between the two near-degenerate states $\psi_1$ and $\psi_2$, whose only difference is the orientation of the line connecting the antinodal points. Possibly due to the boundary being so close by and rectangular, the diagonally-oriented antinodes of $\psi_1$ lead to an ever so slightly lower energy in comparison to $\psi_2$ whose antinodes are more oriented along the $x$-axis. Similarly, in eigenstates $\psi_3$ and $\psi_4$ the only difference is the diagonal vs. axial orientation. Here as well the breaking of the symmetry is due to the proxmity of the rectangular boundary and should vanish by increasing the simulation box size or by e.g. making the box itself spherically symmetrical.
+The modified mesh does little to make solving the generalized eigenproblem any harder. Fig.~\ref{fig: circleEigFuncs} shows the six lowest-energy eigenstates inside the ring-shaped potential well. The eigenstates seem to obey intuition as increase in energy generally translates directly in an addition of a symmetrically-distributed antinode. Interestingly, the more accurate mesh seems to be able to differentiate between the two near-degenerate states $\psi_1$ and $\psi_2$, whose only difference is the orientation of the line connecting the antinodal points. Possibly due to the boundary being so close by and rectangular, the diagonally-oriented antinodes of $\psi_1$ lead to an ever so slightly lower energy in comparison to $\psi_2$ whose antinodes are more oriented along the $x$-axis. Similarly, in eigenstates $\psi_3$ and $\psi_4$ the only difference is the diagonal vs. axial orientation. Here as well the breaking of the symmetry is due to the proximity of the rectangular boundary and should vanish by increasing the simulation box size or by e.g. making the box itself spherically symmetrical.
 
 
 \section{Conclusions and further studies}
@@ -245,8 +246,11 @@ Both the visual inspection of the eigenstates produced by the FEM solver and the
 \label{fig: circleEigFuncs}
 \end{figure}
 
-
 \cleardoublepage
+
+One interesting avenue for further studies would be the implementation of a more automatic adaptive meshing scheme. As stated before, the \texttt{pygmsh} library does not offer ready-made tools for mesh refinement, but programmaticly inserting additional points in the middle of some of the finite element triangles based on e.g. a large value of the laplacian of the eigenstate in the domain might be reasonably straight-forward to implement. The implementation of adaptive meshing would have raised the performance issue in the present code to new heights as the matrix constructions and eigenvalue solutions would have to be redone for each mesh size.
+
+A less manual mesh creation software would also allow for a reasonably achieved increase in the simulation box size. The boundary effects -- not too worrisome even in our tiny simulation domain -- would be further suppressed by having a large domain with a comparatively small region of lower potential. With a larger domain, we could more reliably simulate, say, the electron stucture of a 2D hydrogen atom by introducing a $1/r$-type potential to the system.
 
 \printbibliography
 
